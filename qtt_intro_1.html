@@ -1,0 +1,274 @@
+﻿﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+
+        <title>QTT: 一种自带并行的数组结构</title>
+		
+		<meta name="description" content="">
+		<meta name="keywords" content="Linux，pelican，github，github pages，数据结构，算法，编程语言，开源软件，互联网，程序员找工作，移动互联网，生活时尚，情感交流，研究生生活，技术博客">
+		
+        <meta charset="utf-8" />
+
+
+        <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+        <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
+
+        <link rel="stylesheet" type="text/css" href="/theme/gumby.css" />
+        <link rel="stylesheet" type="text/css" href="/theme/style.css" />
+        <link rel="stylesheet" type="text/css" href="/theme/pygment.css" />
+
+        <script src="/theme/js/libs/modernizr-2.6.2.min.js"></script>
+
+
+
+
+
+
+</head>
+
+<body id="index" class="home">
+
+<!-- Fork me on github -->
+<a target="_blank" href="https://github.com/gasongjian">
+	<img width="149px" height="149px" style="position: absolute; top: 0px; right: 0; border: 0;" src="/theme/icons/forkme.png" alt="Fork me on GitHub" />
+</a>
+
+    <div class="container">
+
+        <div class="row">
+
+          <header id="banner" class="body">
+                  <h1><a href="">数据科学 <strong>Data is All, ALL is Data</strong></a></h1>
+          </header><!-- /#banner -->
+
+            <div id="navigation" class="navbar row">
+              <a href="#" gumby-trigger="#navigation &gt; ul" class="toggle"><i class="icon-menu"></i></a>
+             
+              <ul class="columns">
+                <li><a href="/">Home</a></li>
+				
+					<li><a href="index2.html">Publications</a></li>
+					<li><a href="index3.html">Projects</a></li>
+					<li><a href="index4.html">Data</a></li>
+					<li><a href="index5.html">About me</a></li>
+				
+				<!--
+					<li><a href="index2.html">Publications</a></li>
+					<li><a href="index3.html">Projects</a></li>
+					<li><a href="index4.html">Data</a></li>
+					<li><a href="index5.html">About me</a></li>
+				
+				-->
+              </ul>
+            </div>
+
+<section id="content" class="body">
+
+   <div class="row">
+        <div class="eleven columns">
+
+
+            <header>
+              <h2 class="entry-title">
+                <a href="/qtt_intro_1.html" rel="bookmark"
+                   title="Permalink to QTT: 一种自带并行的数组结构">QTT: 一种自带并行的数组结构</a></h2>
+           
+            </header>
+            <footer class="post-info">
+              <!--
+			  <abbr class="published" title="2015-08-16T14:21:00+08:00">
+                周日 16 八月 2015
+              </abbr>
+              <address class="vcard author">
+                By <a class="url fn" href="/author/jsong.html">JSong</a>
+              </address>
+			  -->
+			  <address class="vcard author" style="font-style:italic;margin-bottom:-10px;">
+				周日 16 八月 2015
+					&nbsp;&nbsp;Write By <a class="url fn" href="/author/jsong.html">JSong</a>
+	
+			  </address>
+			  <hr />			  
+            </footer><!-- /.post-info -->
+            <div class="entry-content">
+              <hr />
+<p>我们知道很多算法内部都是一些基本运算的组合，比如向量加减法，矩阵加减，矩阵-向量乘积，矩阵乘法，hadamard积，kronecker张量积，元素索引等。而QTT对于这些运算都可以很简单的实现并行。</p>
+<p>首先我们来看一下，什么是QTT表示。给定一个多维数组A，其可以是向量，矩阵，或者更高维的数组，这都不是问题。 设A的维数为$l$，如果它有如下的表示，则我们称其为多维数组A的QTT分解。</p>
+<p>$$</p>
+<p>A= U_1 \bowtie U_2 \bowtie \cdots \bowtie U_d</p>
+<p>$$</p>
+<p>那读者肯定得问这里的$U_k$和$\bowtie$是什么鬼，先不急，假设你已经懂了，就把它看成是一种编码。按这个编码我们来看看常见的运算是怎么实现的。</p>
+<ol>
+<li>加法</li>
+</ol>
+<p>$$
+  A+B=\left[\begin{array}{cc} 
+      U_1 &amp; V_1 <br />
+    \end{array} \right] \bowtie \left[ \begin{array}{cc}  <br />
+                                  U_{2} &amp;  \                               <br />
+                                   &amp; V_{2}                               <br />
+                                \end{array} \right] \bowtie \cdots \bowtie  \left[ \begin{array}{c}                           <br />
+                                                                                               U_d \                                                                                         <br />
+                                                                                                V_d                                                                                                   <br />
+                                                                                                \end{array}\right]
+  $$</p>
+<p>比如说我们有d台机器，其中$U_k$和$V_k$存在第K台机器上，则为了获得 数组A和B的加法，我们只需要在每台机器上把$U_k$和$V_k$组合在一起就OK啦，事实上除了加法，其他的大部分运算也都可以。</p>
+<ol>
+<li>矩阵乘法</li>
+</ol>
+<p>$$
+  AB=A\bullet _1^2 B=(U_1 \bullet _1^2 V_1) \bowtie \cdots \bowtie (U_d \bullet _1^2 V_d);
+  $$</p>
+<ol>
+<li>矩阵-向量乘法</li>
+</ol>
+<p>$$
+  AX=A\bullet _1^2 X=(U_1 \bullet _1^2 X_1) \bowtie \cdots \bowtie (U_d \bullet _1^2 X_d);
+  $$</p>
+<ol>
+<li>内积</li>
+</ol>
+<p>$$
+  <A,B>=A\bullet <em 12="12">{12}^{12} B=(U_1 \bullet </em>^{12} V_1) \bowtie \cdots \bowtie (U_d \bullet _{12}^{12} V_d);
+  $$</p>
+<ol>
+<li>Kronecker张量积</li>
+</ol>
+<p>$$
+  A\otimes B=U_1\bowtie \cdots \bowtie U_d \bowtie V_1 \bowtie \cdots \bowtie V_d;
+  $$</p>
+<ol>
+<li>转置</li>
+</ol>
+<p>$$
+  A^{T}=U_1 ^{\underline{T}} \bowtie \cdots \bowtie U_d^{\underline{T}};
+  $$</p>
+<ol>
+<li>对角化算子</li>
+</ol>
+<p>\begin{align<em>}
+  diag(A)&amp;=\underline{diag} (U_1) \bowtie \underline{diag}(U_2) \bowtie \cdots \bowtie \underline{diag}(U_d)\
+  diag(X)&amp;=\underline{diag} (X_1) \bowtie \underline{diag}(X_2) \bowtie \cdots \bowtie \underline{diag}(X_d)
+  \end{align</em>}</p>
+<p>注：第一个是矩阵的对角化，第二个是向量的对角化</p>
+            </div><!-- /.entry-content -->
+			
+			
+			<ul style="float:right;">
+			</ul>
+			
+			
+
+
+        </div><!-- /.eleven.columns -->
+        
+<div class="three columns">
+
+<div class="sidebarbg">
+	<h4>Pages</h4>
+	<ul>
+<!-- 	  		  <li><a href="index2.html">Publications</a></li>
+		  <li><a href="index3.html">Projects</a></li>
+		  <li><a href="index4.html">Data</a></li>
+		  <li><a href="index5.html">About me</a></li>
+ -->
+	</ul>
+</div>
+
+<div class="sidebarbg">
+<h4>Categories</h4>
+	<ul>
+			<li><a href="/category/article.html">Article</a></li>
+			<li><a href="/category/toolbox.html">Toolbox</a></li>
+	</ul>
+</div>
+
+<div class="sidebarbg">
+	<h4>Tags</h4>
+		<ul>
+		</ul>
+</div>
+
+
+<div class="social sidebarbg">
+	<nav class="widget">
+	  <h4>Social</h4>
+	  <ul>
+		<li><a target="_blank" href="/feeds/all.atom.xml">RSS</a></li>
+		<li><a target="_blank" href="https://github.com/gasongjian">GitHub</a></li>
+		<li><a target="_blank" href="https:/github.com/gasongjian/QTT/">ToolBox</a></li>
+	  </ul>
+	</nav>
+</div>
+
+<nav class="widget sidebarbg">
+  <h4>Links</h4>
+  <ul>
+	<li><a target="_blank" href="http://python.org/">Python</a></li>
+	<li><a target="_blank" href="http://docs.getpelican.com/">Pelican</a></li>
+  </ul>
+</nav>
+
+</div> </div><!-- /.row -->
+
+
+</section>
+
+       </div><!-- /.row -->
+    </div><!-- /.container -->
+
+
+       <div class="container.nopad bg">
+
+    
+        <footer id="credits" class="row">
+          <div class="seven columns left-center">
+				   <img alt="Welcome" height="77px" width="78px" src="/images/blogger.jpg" />												
+                   <address id="about" class="vcard body" style="margin-left:110px;margin-top:-80px">
+					博主目前就读于华师大,专业计算数学，爱好数据科学。<br/>
+					Email:gasongjian@126.com&nbsp;欢迎添加友链~<br/>
+					本博客使用Pelican+GitHub Pages搭建，详情请参考<a href="http://www.xycoding.com/articles/2013/11/21/blog-create/" class="active" target="_blank">教程</a>。
+				   </address>
+          </div>
+
+
+          <div class="seven columns">
+            <div class="row">
+              <ul class="socbtns">
+
+                <li><div class="btn primary"><a href="https://github.com/gasongjian" target="_blank">Github</a></div></li>
+
+
+                <li><div class="btn facebook"><a href="http://weibo.com/u/2063269055" target="_blank">微博</a></div></li>
+
+
+              </ul>
+            </div>
+          </div>
+        </footer>
+
+    </div>
+
+
+  <script src="/theme/js/libs/jquery-1.9.1.min.js"></script>
+  <script src="/theme/js/libs/gumby.min.js"></script>
+  <script src="/theme/js/plugins.js"></script>
+	<script>
+	(function() {
+		var $backToTopTxt = "返回顶部", $backToTopEle = $('<div class="backToTop"></div>').appendTo($("body"))
+			.text($backToTopTxt).attr("title", $backToTopTxt).click(function() {
+				$("html, body").animate({ scrollTop: 0 }, 120);
+		}), $backToTopFun = function() {
+			var st = $(document).scrollTop(), winh = $(window).height();
+			(st > 0)? $backToTopEle.show(): $backToTopEle.hide();
+			//IE6下的定位
+			if (!window.XMLHttpRequest) {
+				$backToTopEle.css("top", st + winh - 166);
+			}
+		};
+		$(window).bind("scroll", $backToTopFun);
+		$(function() { $backToTopFun(); });
+	})();
+	</script>
+</body>
+</html>
