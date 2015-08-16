@@ -81,20 +81,79 @@
 								  </address>
 									
 				                </footer><!-- /.post-info -->
-				                <div class="entry-content"> <hr />
-<p>我们知道很多算法内部都是一些基本运算的组合，比如向量加减法，矩阵加减，矩阵-向量乘积，矩阵乘法，hadamard积，kronecker张量积，元素索引等。而QTT对于这些运算都可以很简单的实现并行。</p>
-<p>首先我们来看一下，什么是QTT表示。给定一个多维数组A，其可以是向量，矩阵，或者更高维的数组，这都不是问题。 设A的维数为$l$，如果它有如下的表示，则我们称其为多维数组A的QTT分解。</p>
-<p>$$</p>
-<p>A= U_1 \bowtie U_2 \bowtie \cdots \bowtie U_d</p>
-<p>$$</p>
-<p>那读者肯定得问这里的$U_k$和$\bowtie$是什么鬼，先不急，假设你已经懂了，就把它看成是一种编码。按这个编码我们来看看常见的运算是怎么实现的。</p>
-<ol>
-<li>加法</li>
-</ol>
-<p>$$
+				                <div class="entry-content"> <p>我们知道很多算法内部都是一些基本运算的组合，比如向量加减法，矩阵加减，矩阵-向量乘积，矩阵乘法，hadamard积，kronecker张量积，元素索引等。而QTT对于这些运算都可以很简单的实现并行。</p>
+<p>首先我们来看一下，什么是QTT表示。给定一个多维数组A，其可以是向量，矩阵，或者更高维的数组，这都不是问题。 设A的维数为<span class="math">\(l\)</span>，如果它有如下的表示，则我们称其为多维数组A的QTT分解。</p>
+<div class="math">$$
+A= U_1 \bowtie U_2 \bowtie \cdots \bowtie U_d
+$$</div>
+<p>那读者肯定得问这里的<span class="math">\(U_k\)</span>和<span class="math">\(\bowtie\)</span>是什么鬼，先不急，假设你已经懂了，就把它看成是一种编码。按这个编码我们来看看常见的运算是怎么实现的。</p>
+<p>1.加法</p>
+<div class="math">$$
   A+B=\left[\begin{array}{cc} 
-      U_1 &amp; V_1 <br />
-    \end{array} \right] \bowtie ...</p> </div><!-- /.entry-content -->
+      U_1 &amp; V_1   
+    \end{array} \right] \bowtie \left[ \begin{array}{cc}    
+                                  U_{2} &amp;  \\                                 
+                                   &amp; V_{2}                                 
+                                \end{array} \right] \bowtie \cdots \bowtie  \left[ \begin{array}{c}                             
+                                                                                               U_d \\                                                                                           
+                                                                                                V_d                                                                                                     
+                                                                                                \end{array}\right]
+  $$ ...</div><script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+    
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript'; 
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script> </div><!-- /.entry-content -->
 
 								<div class="medium primary btn"><a href="/qtt_intro_1.html" rel="bookmark" title="Permalink to QTT: 一种自带并行的数组结构">Read more <i class="icon-arrow-right"></i></a></div>
 
@@ -119,18 +178,17 @@
 								  </address>
 									
 				                </footer><!-- /.post-info -->
-				                <div class="entry-content"> <hr />
-<h2><strong>QTT分解介绍</strong></h2>
+				                <div class="entry-content"> <h3><strong>QTT分解介绍</strong></h3>
 <p>QTT（Quantics Tensor Train）分解是一种适用于任意分层张量(包含多维数组)的张量分解方法, 通过对数组的反复折叠该分解可以达到降维和特征提取的作用。QTT已被证明是一种基于流形学习的降维工具和多尺度的特征提取工具。</p>
 <p><strong>定义：</strong>给定一个分层张量(包含向量、矩阵等多维数组)A，如果其有如下表示，</p>
 <p><img alt="" src="http://latex.codecogs.com/gif.latex?\qquad" title="A=U_1 \bowtie U_2 \bowtie \cdots \bowtie U_d" /></p>
 <p>其中后面d-1个QTT核满足右正交条件, 则称之为A的QTT分解。</p>
-<h2><strong>工具箱介绍</strong></h2>
+<h3><strong>工具箱介绍</strong></h3>
 <p>这是一个用MATLAB语言写的QTT-Toolbox，免费提供大家使用,使用后请注明引用,谢谢。工具箱将分层张量新定义成了一个类，分层张量之间的大部分运算都已实现。通过这个模块化编程，我们能更加简单的扩展编程。如果读者发现函数有bug或者实现算法能加速，请邮件告之作者，谢谢。</p>
 <p>=============================================</p>
 <p>JSong,20-Jul-2015</p>
 <p>Last Revision: 11-Aug-2015.</p>
-<p>Github:http://github.com/gasongjian/QTT/</p>
+<p>Github:<a href="http://github.com/gasongjian/QTT/">http://github.com/gasongjian/QTT/</a></p>
 <p>citition: <em>基于量子化张量列(QTT)模型的特征提取</em></p>
 <p>=============================================</p>
 <ol>
@@ -246,6 +304,15 @@
     </div>
 
 
+<script type="text/javascript">
+    var disqus_shortname = 'httpgasongjiangithubio';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
   <script src="/theme/js/libs/jquery-1.9.1.min.js"></script>
   <script src="/theme/js/libs/gumby.min.js"></script>
   <script src="/theme/js/plugins.js"></script>
