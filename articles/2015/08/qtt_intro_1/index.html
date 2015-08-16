@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="zh">
 <head>
 
-        <title>数据科学</title>
+        <title>QTT: 一种自带并行的数组结构</title>
 		
-		<meta name="description" content="数据科学是一个专注于数据驱动和计算数学的博客，希望大家一起交流学习。">
+		<meta name="description" content="">
 		<meta name="keywords" content="Linux，pelican，github，github pages，数据结构，算法，编程语言，开源软件，互联网，程序员找工作，移动互联网，生活时尚，情感交流，研究生生活，技术博客">
 		
         <meta charset="utf-8" />
@@ -62,26 +62,36 @@
               </ul>
             </div>
 
-<section id="content">
+<section id="content" class="body">
 
    <div class="row">
-
         <div class="eleven columns">
 
-		
-		         <ol id="post-list">
-				        <li><article class="hentry">
-				                <header> <h2 class="entry-title"><a href="/articles/2015/08/qtt_intro_1/" rel="bookmark" title="Permalink to QTT: 一种自带并行的数组结构">QTT: 一种自带并行的数组结构</a></h2> </header>
-				                <footer class="post-info">
-				                    <!--<abbr class="published" title="2015-08-16T14:21:00+08:00"> 周日 16 八月 2015 </abbr>
-<address class="vcard author">By <a class="url fn" href="/author/jsong.html">JSong</a></address>-->
-								 <address class="vcard author" style="font-style:italic;">
-									周日 16 八月 2015
-										&nbsp;&nbsp;Write By <a class="url fn" href="/author/jsong.html">JSong</a>
-								  </address>
-									
-				                </footer><!-- /.post-info -->
-				                <div class="entry-content"> <p>我们知道很多算法内部都是一些基本运算的组合，比如向量加减法，矩阵加减，矩阵-向量乘积，矩阵乘法，hadamard积，kronecker张量积，元素索引等。而QTT对于这些运算都可以很简单的实现并行。</p>
+
+            <header>
+              <h2 class="entry-title">
+                <a href="/articles/2015/08/qtt_intro_1/" rel="bookmark"
+                   title="Permalink to QTT: 一种自带并行的数组结构">QTT: 一种自带并行的数组结构</a></h2>
+           
+            </header>
+            <footer class="post-info">
+              <!--
+			  <abbr class="published" title="2015-08-16T14:21:00+08:00">
+                周日 16 八月 2015
+              </abbr>
+              <address class="vcard author">
+                By <a class="url fn" href="/author/jsong.html">JSong</a>
+              </address>
+			  -->
+			  <address class="vcard author" style="font-style:italic;margin-bottom:-10px;">
+				周日 16 八月 2015
+					&nbsp;&nbsp;Write By <a class="url fn" href="/author/jsong.html">JSong</a>
+	
+			  </address>
+			  <hr />			  
+            </footer><!-- /.post-info -->
+            <div class="entry-content">
+              <p>我们知道很多算法内部都是一些基本运算的组合，比如向量加减法，矩阵加减，矩阵-向量乘积，矩阵乘法，hadamard积，kronecker张量积，元素索引等。而QTT对于这些运算都可以很简单的实现并行。</p>
 <p>首先我们来看一下，什么是QTT表示。给定一个多维数组A，其可以是向量，矩阵，或者更高维的数组，这都不是问题。 设A的维数为<span class="math">\(l\)</span>，如果它有如下的表示，则我们称其为多维数组A的QTT分解。</p>
 <div class="math">$$
 A= U_1 \bowtie U_2 \bowtie \cdots \bowtie U_d
@@ -98,100 +108,35 @@ $$</div>
                                                                                                U_d \\                                                                                           
                                                                                                 V_d                                                                                                     
                                                                                                 \end{array}\right]
-  $$ ...</div><script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var align = "center",
-        indent = "0em",
-        linebreak = "false";
-
-    if (false) {
-        align = (screen.width < 768) ? "left" : align;
-        indent = (screen.width < 768) ? "0em" : indent;
-        linebreak = (screen.width < 768) ? 'true' : linebreak;
-    }
-    
-    var mathjaxscript = document.createElement('script');
-    var location_protocol = (false) ? 'https' : document.location.protocol;
-    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
-    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript'; 
-    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
-    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
-        "MathJax.Hub.Config({" +
-        "    config: ['MMLorHTML.js']," +
-        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
-        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
-        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: '"+ align +"'," +
-        "    displayIndent: '"+ indent +"'," +
-        "    showMathMenu: true," +
-        "    tex2jax: { " +
-        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
-        "        displayMath: [ ['$$','$$'] ]," +
-        "        processEscapes: true," +
-        "        preview: 'TeX'," +
-        "    }, " +
-        "    'HTML-CSS': { " +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
-        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
-        "    }, " +
-        "}); " +
-        "if ('default' !== 'default') {" +
-            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-        "}";
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
-}
-</script> </div><!-- /.entry-content -->
-
-								<div class="medium primary btn"><a href="/articles/2015/08/qtt_intro_1/" rel="bookmark" title="Permalink to QTT: 一种自带并行的数组结构">Read more <i class="icon-arrow-right"></i></a></div>
-
-
-
-								<div class="row tag-row">
-										<span>Tagged as : </span>
-											<a class="danger label" href="/tag/qtt.html">QTT</a>
-								</div>
-
-
-
-				        </article></li>
-				        <li><article class="hentry">
-				                <header> <h2 class="entry-title"><a href="/articles/2015/08/qtt_quickstart/" rel="bookmark" title="Permalink to QTT-Toolbox QuickStart">QTT-Toolbox QuickStart</a></h2> </header>
-				                <footer class="post-info">
-				                    <!--<abbr class="published" title="2015-08-15T19:22:00+08:00"> 周六 15 八月 2015 </abbr>
-<address class="vcard author">By <a class="url fn" href="/author/jsong.html">JSong</a></address>-->
-								 <address class="vcard author" style="font-style:italic;">
-									周六 15 八月 2015
-										&nbsp;&nbsp;Write By <a class="url fn" href="/author/jsong.html">JSong</a>
-								  </address>
-									
-				                </footer><!-- /.post-info -->
-				                <div class="entry-content"> <h3><strong>QTT分解介绍</strong></h3>
-<p>QTT（Quantics Tensor Train）分解是一种适用于任意分层张量(包含多维数组)的张量分解方法, 通过对数组的反复折叠该分解可以达到降维和特征提取的作用。QTT已被证明是一种基于流形学习的降维工具和多尺度的特征提取工具。</p>
-<p><strong>定义：</strong>给定一个分层张量(包含向量、矩阵等多维数组)A，如果其有如下表示，</p>
+  $$</div>
+<p>比如说我们有d台机器，其中<span class="math">\(U_k\)</span>和<span class="math">\(V_k\)</span>存在第K台机器上，则为了获得 数组A和B的加法，我们只需要在每台机器上把<span class="math">\(U_k\)</span>和<span class="math">\(V_k\)</span>组合在一起就OK啦，事实上除了加法，其他的大部分运算也都可以。</p>
+<p>2.矩阵乘法</p>
 <div class="math">$$
-A= U_1 \bowtie U_2 \bowtie \cdots \bowtie U_d
-$$</div>
-<p>其中后面d-1个QTT核满足右正交条件, 则称之为A的QTT分解。</p>
-<h3><strong>工具箱介绍</strong></h3>
-<p>这是一个用MATLAB语言写的QTT-Toolbox，免费提供大家使用,使用后请注明引用,谢谢。工具箱将分层张量新定义成了一个类，分层张量之间的大部分运算都已实现。通过这个模块化编程，我们能更加简单的扩展编程。如果读者发现函数有bug或者实现算法能加速，请邮件告之作者，谢谢。</p>
-<p>=============================================</p>
-<p>JSong,20-Jul-2015</p>
-<p>Last Revision: 11-Aug-2015.</p>
-<p>Github:<a href="http://github.com/gasongjian/QTT/">http://github.com/gasongjian/QTT/</a></p>
-<p>citition ...</p><script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+  AB=A\bullet _1^2 B=(U_1 \bullet _1^2 V_1) \bowtie \cdots \bowtie (U_d \bullet _1^2 V_d);
+  $$</div>
+<p>3.矩阵-向量乘法</p>
+<div class="math">$$
+  AX=A\bullet _1^2 X=(U_1 \bullet _1^2 X_1) \bowtie \cdots \bowtie (U_d \bullet _1^2 X_d);
+  $$</div>
+<p>4.内积</p>
+<div class="math">$$
+  &lt;A,B&gt;=A\bullet _{12}^{12} B=(U_1 \bullet _{12}^{12} V_1) \bowtie \cdots \bowtie (U_d \bullet _{12}^{12} V_d);
+  $$</div>
+<p>5.Kronecker张量积</p>
+<div class="math">$$
+  A\otimes B=U_1\bowtie \cdots \bowtie U_d \bowtie V_1 \bowtie \cdots \bowtie V_d;
+  $$</div>
+<p>6.转置</p>
+<div class="math">$$
+  A^{T}=U_1 ^{\underline{T}} \bowtie \cdots \bowtie U_d^{\underline{T}};
+  $$</div>
+<p>7.对角化算子</p>
+<div class="math">\begin{align*}
+  diag(A)&amp;=\underline{diag} (U_1) \bowtie \underline{diag}(U_2) \bowtie \cdots \bowtie \underline{diag}(U_d)\\
+  diag(X)&amp;=\underline{diag} (X_1) \bowtie \underline{diag}(X_2) \bowtie \cdots \bowtie \underline{diag}(X_d)
+  \end{align*}</div>
+<p>注：第一个是矩阵的对角化，第二个是向量的对角化</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
         linebreak = "false";
@@ -246,23 +191,32 @@ $$</div>
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-</script> </div><!-- /.entry-content -->
+</script>
+            </div><!-- /.entry-content -->
+			
+			
+			<ul style="float:right;">
+				<li>
+					◄&nbsp;&nbsp;<a href="/articles/2015/08/qtt_quickstart/">
+						QTT-Toolbox QuickStart
+					</a>
+				</li>
+			</ul>
+			
+			
+            <div class="comments">
+              <h3>Comments</h3>
+              <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                var disqus_identifier = "articles/2015/08/qtt_intro_1/";
+                (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://httpgasongjiangithubio.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+              </script>
+            </div>
 
-								<div class="medium primary btn"><a href="/articles/2015/08/qtt_quickstart/" rel="bookmark" title="Permalink to QTT-Toolbox QuickStart">Read more <i class="icon-arrow-right"></i></a></div>
-
-
-
-								<div class="row tag-row">
-										<span>Tagged as : </span>
-											<a class="danger label" href="/tag/toolbox.html">Toolbox</a>
-											<a class="danger label" href="/tag/github-pages.html">github pages</a>
-											<a class="danger label" href="/tag/qtt.html">QTT</a>
-								</div>
-
-
-
-				        </article></li>
-				</ol><!-- /#posts-list -->
 
         </div><!-- /.eleven.columns -->
         
@@ -315,10 +269,8 @@ $$</div>
 
 </div> </div><!-- /.row -->
 
-<p class="paginator">
-    Page 1 / 1
-</p>
-</section><!-- /#content -->
+
+</section>
 
        </div><!-- /.row -->
     </div><!-- /.container -->

@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
 
-        <title>QTT: 一种自带并行的数组结构</title>
+        <title>QTT-Toolbox QuickStart</title>
 		
 		<meta name="description" content="">
 		<meta name="keywords" content="Linux，pelican，github，github pages，数据结构，算法，编程语言，开源软件，互联网，程序员找工作，移动互联网，生活时尚，情感交流，研究生生活，技术博客">
@@ -70,72 +70,146 @@
 
             <header>
               <h2 class="entry-title">
-                <a href="/qtt_intro_1.html" rel="bookmark"
-                   title="Permalink to QTT: 一种自带并行的数组结构">QTT: 一种自带并行的数组结构</a></h2>
+                <a href="/articles/2015/08/qtt_quickstart/" rel="bookmark"
+                   title="Permalink to QTT-Toolbox QuickStart">QTT-Toolbox QuickStart</a></h2>
            
             </header>
             <footer class="post-info">
               <!--
-			  <abbr class="published" title="2015-08-16T14:21:00+08:00">
-                周日 16 八月 2015
+			  <abbr class="published" title="2015-08-15T19:22:00+08:00">
+                周六 15 八月 2015
               </abbr>
               <address class="vcard author">
                 By <a class="url fn" href="/author/jsong.html">JSong</a>
               </address>
 			  -->
 			  <address class="vcard author" style="font-style:italic;margin-bottom:-10px;">
-				周日 16 八月 2015
+				周六 15 八月 2015
 					&nbsp;&nbsp;Write By <a class="url fn" href="/author/jsong.html">JSong</a>
 	
 			  </address>
 			  <hr />			  
             </footer><!-- /.post-info -->
             <div class="entry-content">
-              <p>我们知道很多算法内部都是一些基本运算的组合，比如向量加减法，矩阵加减，矩阵-向量乘积，矩阵乘法，hadamard积，kronecker张量积，元素索引等。而QTT对于这些运算都可以很简单的实现并行。</p>
-<p>首先我们来看一下，什么是QTT表示。给定一个多维数组A，其可以是向量，矩阵，或者更高维的数组，这都不是问题。 设A的维数为<span class="math">\(l\)</span>，如果它有如下的表示，则我们称其为多维数组A的QTT分解。</p>
+              <h3><strong>QTT分解介绍</strong></h3>
+<p>QTT（Quantics Tensor Train）分解是一种适用于任意分层张量(包含多维数组)的张量分解方法, 通过对数组的反复折叠该分解可以达到降维和特征提取的作用。QTT已被证明是一种基于流形学习的降维工具和多尺度的特征提取工具。</p>
+<p><strong>定义：</strong>给定一个分层张量(包含向量、矩阵等多维数组)A，如果其有如下表示，</p>
 <div class="math">$$
 A= U_1 \bowtie U_2 \bowtie \cdots \bowtie U_d
 $$</div>
-<p>那读者肯定得问这里的<span class="math">\(U_k\)</span>和<span class="math">\(\bowtie\)</span>是什么鬼，先不急，假设你已经懂了，就把它看成是一种编码。按这个编码我们来看看常见的运算是怎么实现的。</p>
-<p>1.加法</p>
-<div class="math">$$
-  A+B=\left[\begin{array}{cc} 
-      U_1 &amp; V_1   
-    \end{array} \right] \bowtie \left[ \begin{array}{cc}    
-                                  U_{2} &amp;  \\                                 
-                                   &amp; V_{2}                                 
-                                \end{array} \right] \bowtie \cdots \bowtie  \left[ \begin{array}{c}                             
-                                                                                               U_d \\                                                                                           
-                                                                                                V_d                                                                                                     
-                                                                                                \end{array}\right]
-  $$</div>
-<p>比如说我们有d台机器，其中<span class="math">\(U_k\)</span>和<span class="math">\(V_k\)</span>存在第K台机器上，则为了获得 数组A和B的加法，我们只需要在每台机器上把<span class="math">\(U_k\)</span>和<span class="math">\(V_k\)</span>组合在一起就OK啦，事实上除了加法，其他的大部分运算也都可以。</p>
-<p>2.矩阵乘法</p>
-<div class="math">$$
-  AB=A\bullet _1^2 B=(U_1 \bullet _1^2 V_1) \bowtie \cdots \bowtie (U_d \bullet _1^2 V_d);
-  $$</div>
-<p>3.矩阵-向量乘法</p>
-<div class="math">$$
-  AX=A\bullet _1^2 X=(U_1 \bullet _1^2 X_1) \bowtie \cdots \bowtie (U_d \bullet _1^2 X_d);
-  $$</div>
-<p>4.内积</p>
-<div class="math">$$
-  &lt;A,B&gt;=A\bullet _{12}^{12} B=(U_1 \bullet _{12}^{12} V_1) \bowtie \cdots \bowtie (U_d \bullet _{12}^{12} V_d);
-  $$</div>
-<p>5.Kronecker张量积</p>
-<div class="math">$$
-  A\otimes B=U_1\bowtie \cdots \bowtie U_d \bowtie V_1 \bowtie \cdots \bowtie V_d;
-  $$</div>
-<p>6.转置</p>
-<div class="math">$$
-  A^{T}=U_1 ^{\underline{T}} \bowtie \cdots \bowtie U_d^{\underline{T}};
-  $$</div>
-<p>7.对角化算子</p>
-<div class="math">\begin{align*}
-  diag(A)&amp;=\underline{diag} (U_1) \bowtie \underline{diag}(U_2) \bowtie \cdots \bowtie \underline{diag}(U_d)\\
-  diag(X)&amp;=\underline{diag} (X_1) \bowtie \underline{diag}(X_2) \bowtie \cdots \bowtie \underline{diag}(X_d)
-  \end{align*}</div>
-<p>注：第一个是矩阵的对角化，第二个是向量的对角化</p>
+<p>其中后面d-1个QTT核满足右正交条件, 则称之为A的QTT分解。</p>
+<h3><strong>工具箱介绍</strong></h3>
+<p>这是一个用MATLAB语言写的QTT-Toolbox，免费提供大家使用,使用后请注明引用,谢谢。工具箱将分层张量新定义成了一个类，分层张量之间的大部分运算都已实现。通过这个模块化编程，我们能更加简单的扩展编程。如果读者发现函数有bug或者实现算法能加速，请邮件告之作者，谢谢。</p>
+<p>=============================================</p>
+<p>JSong,20-Jul-2015</p>
+<p>Last Revision: 11-Aug-2015.</p>
+<p>Github:<a href="http://github.com/gasongjian/QTT/">http://github.com/gasongjian/QTT/</a></p>
+<p>citition: <em>基于量子化张量列(QTT)模型的特征提取</em></p>
+<p>=============================================</p>
+<ol>
+<li>自定义类 <strong>layer_tensor</strong>(分层张量)</li>
+</ol>
+<p>不同于TT-Toolbox, QTT-Toolbox中每一个QTT核以分层张量的形式存储, QTT分解相当于将以一个多维数组分解成多个分层张量的某种乘积。</p>
+<p>目前分层张量已经实现如下功能：l打头的代表外层用矩阵乘法,lk打头代表外层用kronecker乘积，u打头代表算子作用于子张量。</p>
+<ul>
+<li>
+<p><strong>初始化</strong></p>
+<div class="highlight"><pre>A=rand(2,3,4,5);%一个大小为2*5，子模数为3*4的分层张量    
+lt=layer_tensor(A);   
+lt=layer_tensor(A(:),[2;5],[3;4]); %给定大小和子模数
+</pre></div>
+
+
+</li>
+<li>
+<p><strong>元素引用和赋值</strong></p>
+<p>用圆括号引用子张量, 用大括号引用元素(见论文).</p>
+<div class="highlight"><pre><span class="nt">r</span><span class="o">=</span><span class="nt">lt</span><span class="nc">.size</span><span class="o">;</span>  
+<span class="nt">scale</span><span class="o">=</span><span class="nt">lt</span><span class="nc">.scale</span><span class="o">;</span>   
+<span class="nt">A</span><span class="o">=</span><span class="nt">lt</span><span class="o">(</span><span class="nt">1</span><span class="o">,</span><span class="nt">2</span><span class="o">);</span>    
+<span class="nt">A</span><span class="o">=</span><span class="nt">lt</span><span class="o">(</span><span class="nt">1</span><span class="nd">:2</span><span class="o">,</span><span class="nt">5</span><span class="o">);</span>      
+<span class="nt">A</span><span class="o">=</span><span class="nt">lt</span><span class="p">{</span><span class="m">3</span><span class="o">,</span><span class="m">4</span><span class="p">}</span><span class="o">;</span>    
+<span class="nt">lt</span><span class="o">(</span><span class="nt">1</span><span class="o">,</span><span class="nt">1</span><span class="o">)=</span><span class="nt">A</span><span class="o">;</span>
+</pre></div>
+
+
+</li>
+<li>
+<p><strong>分层kronecker乘积</strong></p>
+<p>为加快速度，本工具箱将该运算转化成了矩阵乘法，再经过一定的置换得到新的分层张量，具体可参见论文。</p>
+<div class="highlight"><pre>lt=lkron(lt1,lt2);    
+% lt(1,1)=\sum kron(lt1(1,i),lt2(i,1))
+</pre></div>
+
+
+</li>
+<li>
+<p><strong>分层外积</strong></p>
+<p>为加快速度，该运算的实现利用了矩阵乘法和一定的置换, 具体可参见论文。</p>
+<div class="highlight"><pre>louter(lt1,lt2);
+</pre></div>
+
+
+</li>
+<li>
+<p><strong>广义张量积</strong></p>
+<p>利用该运算，可以简单实现两个QTT格式下的矩阵之间的乘法。   </p>
+<div class="highlight"><pre>lktimes(lt1,lt2,types);   
+% 可验证下面两个表达式相等    
+L1=lktimes(lkron(lt1,lt2),lkron(lt3,lt4),types);      
+L2=lkron(lktimes(lt1,lt3,types),lktimes(lt2,lt4,types));      
+isequal(L1,L2)
+</pre></div>
+
+
+</li>
+<li>
+<p><strong>其他</strong></p>
+</li>
+<li>
+<p><code>double</code>：转换成多维数组, 如果大小为1, 则转化为子张量    </p>
+</li>
+<li><code>size</code>：  默认返回分层张量的大小,如上例中的[2;5]  </li>
+<li><code>ctranspose</code>: 外转置, lt1=lt'; 则lt1大小为5<em>3</em>4*2；      </li>
+<li><code>utranspose</code>： 内转置, 如果子张量是矩阵，则转置所有子张量     </li>
+<li><code>udiag</code>：    内对角化, 子张量是向量或者矩阵     </li>
+<li><code>lt2cell</code>：  将分层张量转化为2*5的cell, 每一个cell内都是一个子张量    </li>
+<li><code>ltfun</code> ：   类似于cellfun,非常实用的函数。 矩阵情形中ltfun(lt,@(x)x',[4;3])等价于utranspose     </li>
+<li><code>minus</code>,<code>plus</code>： 加法和减法</li>
+</ul>
+<p>=============================================</p>
+<ol>
+<li><strong>QTT分解</strong></li>
+</ol>
+<p>张量的基本运算：</p>
+<ul>
+<li><code>nkron</code>: 张量的Kronecker乘法，要求两个张量的维数相同   </li>
+<li><code>outer</code>：张量的外积   </li>
+<li><code>gtimes</code>:张量的广义乘法</li>
+</ul>
+<p>QTT分解函数：</p>
+<ul>
+<li><code>qtt</code>：适用于多维数组的QTT分解  </li>
+<li><code>gqtt</code>： 适用于任意分层张量的QTT分解，同时也支持多维数组.采用方法：循环</li>
+</ul>
+<p>其他函数：</p>
+<ul>
+<li><code>qtt2ltcore</code>:将qtt返回的结构体转化成gqtt函数的输出格式   </li>
+<li><code>ltsplit</code>:获取QTT分解的QTT分量   </li>
+<li><code>clkron</code>: 适用于元胞的lkron函数，可用于QTT格式的还原   </li>
+<li><code>ltextend</code>:适用于分层张量的延拓函数   </li>
+<li><code>demo_feature_detection</code> :一个简单的例子</li>
+</ul>
+<p>使用方法：   </p>
+<div class="highlight"><pre>    <span class="nt">x</span><span class="o">=</span><span class="nt">rand</span><span class="o">(</span><span class="nt">6</span><span class="o">^</span><span class="nt">5</span><span class="o">,</span><span class="nt">1</span><span class="o">);</span><span class="nt">y</span><span class="o">=</span><span class="nt">2</span><span class="o">*</span><span class="nt">x</span><span class="o">+</span><span class="nt">rand</span><span class="o">(</span><span class="nt">6</span><span class="o">^</span><span class="nt">5</span><span class="o">,</span><span class="nt">1</span><span class="o">)*</span><span class="nt">0</span><span class="nc">.1</span><span class="o">;</span>     
+    <span class="nt">A</span><span class="o">=</span><span class="cp">[</span><span class="nx">x</span><span class="s1">&#39;;y&#39;</span><span class="cp">]</span><span class="o">;</span>   
+    <span class="nt">A</span><span class="o">=</span><span class="nt">layer_tensor</span><span class="o">(</span><span class="nt">A</span><span class="o">(:),</span><span class="cp">[</span><span class="mi">2</span><span class="p">;</span><span class="mi">1</span><span class="cp">]</span><span class="o">,</span><span class="cp">[</span><span class="mi">6</span><span class="p">^</span><span class="mi">5</span><span class="cp">]</span><span class="o">);</span>    
+    <span class="nt">ltcore</span><span class="o">=</span><span class="nt">gqtt</span><span class="o">(</span><span class="nt">A</span><span class="o">,</span><span class="cp">[</span><span class="mi">6</span><span class="p">;</span><span class="mi">6</span><span class="p">;</span><span class="mi">6</span><span class="p">;</span><span class="mi">6</span><span class="p">;</span><span class="mi">6</span><span class="cp">]</span><span class="o">,</span><span class="nt">1e-4</span><span class="o">,</span><span class="s1">&#39;sym&#39;</span><span class="o">);</span>     
+    <span class="nt">A1</span><span class="o">=</span><span class="nt">clkron</span><span class="o">(</span><span class="nt">ltcore</span><span class="o">);</span>   
+    <span class="nt">X</span><span class="o">=</span><span class="nt">ltsplit</span><span class="o">(</span><span class="nt">clkron</span><span class="o">(</span><span class="nt">ltcore</span><span class="o">(</span><span class="nt">1</span><span class="nd">:3</span><span class="o">)),</span><span class="nt">clkron</span><span class="o">(</span><span class="nt">ltcore</span><span class="o">(</span><span class="nt">4</span><span class="nd">:5</span><span class="o">)),</span><span class="s1">&#39;kron&#39;</span><span class="o">);</span>
+</pre></div>
+
+
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
@@ -197,8 +271,8 @@ $$</div>
 			
 			<ul style="float:right;">
 				<li>
-					◄&nbsp;&nbsp;<a href="/qtt_quickstart.html">
-						QTT-Toolbox QuickStart
+					►&nbsp;&nbsp;<a href="/articles/2015/08/qtt_intro_1/">
+						QTT: 一种自带并行的数组结构
 					</a>
 				</li>
 			</ul>
@@ -208,7 +282,7 @@ $$</div>
               <h3>Comments</h3>
               <div id="disqus_thread"></div>
               <script type="text/javascript">
-                var disqus_identifier = "qtt_intro_1.html";
+                var disqus_identifier = "articles/2015/08/qtt_quickstart/";
                 (function() {
                 var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                 dsq.src = 'http://httpgasongjiangithubio.disqus.com/embed.js';
