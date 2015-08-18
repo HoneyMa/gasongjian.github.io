@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
 
-        <title>数据科学小站</title>
+        <title>数据科学小站 - CNN</title>
 		
 		<meta name="description" content="数据科学是一个专注于数据驱动和计算数学的博客，希望大家一起交流学习。">
 		<meta name="keywords" content="pelican，github，github pages，数据结构，算法，计算数学，张量分解，降维，特征提取，图像处理，机器学习，深度学习，编程语言，研究生生活，技术博客">
@@ -67,34 +67,31 @@
    <div class="row">
 
         <div class="eleven columns">
-<h2>Articles in the Toolbox category</h2>
+
 		
 		         <ol id="post-list">
 				        <li><article class="hentry">
-				                <header> <h2 class="entry-title"><a href="/articles/2015/08/qtt_quickstart/" rel="bookmark" title="Permalink to QTT-Toolbox QuickStart">QTT-Toolbox QuickStart</a></h2> </header>
+				                <header> <h2 class="entry-title"><a href="/articles/2015/06/PCANet/" rel="bookmark" title="Permalink to 导读：PCANet,Simple Deep Learning Baseline for Image Classification?">导读：PCANet,Simple Deep Learning Baseline for Image Classification?</a></h2> </header>
 				                <footer class="post-info">
-				                    <!--<abbr class="published" title="2015-08-15T19:22:00+08:00"> 周六 15 八月 2015 </abbr>
+				                    <!--<abbr class="published" title="2015-06-06T19:22:00+08:00"> 周六 06 六月 2015 </abbr>
 <address class="vcard author">By <a class="url fn" href="/author/jsong.html">JSong</a></address>-->
 								 <address class="vcard author" style="font-style:italic;">
-									周六 15 八月 2015
+									周六 06 六月 2015
 										&nbsp;&nbsp;Write By <a class="url fn" href="/author/jsong.html">JSong</a>
 								  </address>
 									
 				                </footer><!-- /.post-info -->
-				                <div class="entry-content"> <h3><strong>QTT分解介绍</strong></h3>
-<p>QTT（Quantics Tensor Train）分解是一种适用于任意分层张量(包含多维数组)的张量分解方法, 通过对数组的反复折叠该分解可以达到降维和特征提取的作用。QTT已被证明是一种基于流形学习的降维工具和多尺度的特征提取工具。</p>
-<p><strong>定义：</strong>给定一个分层张量(包含向量、矩阵等多维数组)A，如果其有如下表示，</p>
-<div class="math">$$
-A= U_1 \bowtie U_2 \bowtie \cdots \bowtie U_d
-$$</div>
-<p>其中后面d-1个QTT核满足右正交条件, 则称之为A的QTT分解。</p>
-<h3><strong>工具箱介绍</strong></h3>
-<p>这是一个用MATLAB语言写的QTT-Toolbox，免费提供大家使用,使用后请注明引用,谢谢。工具箱将分层张量新定义成了一个类，分层张量之间的大部分运算都已实现。通过这个模块化编程，我们能更加简单的扩展编程。如果读者发现函数有bug或者实现算法能加速，请邮件告之作者，谢谢。</p>
-<p>=============================================</p>
-<p>JSong,20-Jul-2015</p>
-<p>Last Revision: 11-Aug-2015.</p>
-<p>Github:<a href="http://github.com/gasongjian/QTT/">http://github.com/gasongjian/QTT/</a></p>
-<p>citition ...</p><script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+				                <div class="entry-content"> <hr />
+<blockquote>
+<p>之前看过一句话，未来领域类专家需求将越来越少，而相应的数据挖掘专家需求将不断增加，这时因为深度学习的核心在于其自适应的特征提取。PCANet是一个基于CNN的简化Deep Learning模型。之所以读它是因为它是基于PCA(SVD)的，其卷积核从图像信号的某种SVD分解得到的，而这也是张量列分解的核心之一。该网络与CNN相比最大的地方在于卷积核是直接通过PCA计算得到的，而不是像CNN一样通过反馈迭代得到的。</p>
+</blockquote>
+<p><img alt="经典卷积网络示意图" src="/images/cnn1.png" /></p>
+<p><img alt="PCANet示意图" src="/images/pcanet1.png" /></p>
+<p>从上图可以看到，PCANet的训练分为三个步骤(stage)，前两个stage很相似，都是去平均，然后PCA取主成分并卷积，最后一步是二值化和直方图量化。下面按步骤介绍PCANet的训练过程：</p>
+<p>一、特征提取</p>
+<p>1、First stage:</p>
+<p><img alt="First stage" src="/images/pcanet2.png" /></p>
+<p>1)、选取一个<span class="math">\(k_1 \times k_2\)</span>的窗口(通常为<span class="math">\(3 \times 3\)</span>、<span class="math">\(5\times 5\)</span>、<span class="math">\(7\times 7\)</span>)来滑动选取图片的局部特征。每张<span class="math">\(m\times n\)</span>大小的图片<span class="math">\(I_i\)</span>经过滑动窗口提取局部特征之后 ...</p><script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
         linebreak = "false";
@@ -151,64 +148,15 @@ $$</div>
 }
 </script> </div><!-- /.entry-content -->
 
-								<div class="medium primary btn"><a href="/articles/2015/08/qtt_quickstart/" rel="bookmark" title="Permalink to QTT-Toolbox QuickStart">Read more <i class="icon-arrow-right"></i></a></div>
+								<div class="medium primary btn"><a href="/articles/2015/06/PCANet/" rel="bookmark" title="Permalink to 导读：PCANet,Simple Deep Learning Baseline for Image Classification?">Read more <i class="icon-arrow-right"></i></a></div>
 
 
 
 								<div class="row tag-row">
 										<span>Tagged as : </span>
-											<a class="danger label" href="/tag/toolbox.html">Toolbox</a>
-											<a class="danger label" href="/tag/github-pages.html">github pages</a>
-											<a class="danger label" href="/tag/qtt.html">QTT</a>
-								</div>
-
-
-
-				        </article></li>
-				        <li><article class="hentry">
-				                <header> <h2 class="entry-title"><a href="/articles/2015/06/matlab_func/" rel="bookmark" title="Permalink to MATLAB 实用函数">MATLAB 实用函数</a></h2> </header>
-				                <footer class="post-info">
-				                    <!--<abbr class="published" title="2015-06-06T19:22:00+08:00"> 周六 06 六月 2015 </abbr>
-<address class="vcard author">By <a class="url fn" href="/author/jsong.html">JSong</a></address>-->
-								 <address class="vcard author" style="font-style:italic;">
-									周六 06 六月 2015
-										&nbsp;&nbsp;Write By <a class="url fn" href="/author/jsong.html">JSong</a>
-								  </address>
-									
-				                </footer><!-- /.post-info -->
-				                <div class="entry-content"> <h3><strong>MATLAB个人工具箱(MATLAB)</strong></h3>
-<ul>
-<li><code>mymail.m</code> 可以利用MATLAB发送邮件(支持附件和群发)，非常实用的函数，适用于：耗时很长的脚本完成后通知作者；外加定时器后用于信息推送；家庭监视器紧急通知等等</li>
-<li><code>textwrite.m</code> 可以将元胞数组写入文本文件当中，支持足够大的元胞.</li>
-<li><code>qrcode.m</code> 二维码生成器.</li>
-<li><code>md5.m</code> MD5校验、数字指纹。适用于程序的安全设计，如可以设计一个程序，使得其需要密码才能使用.</li>
-<li><code>getmac.m</code> 个人PC的MAC地址获取. 个人电脑网卡的地址是唯一不变的，亦可用于程序的安全设计，使得一个程序只能在指点电脑才能正确运行.</li>
-<li><code>codekernal.m</code> Unicode编码的转换.</li>
-<li><code>addtoolbox.m</code> 将函数添加至matlab工具箱</li>
-</ul>
-<p>下载地址：<a href="http://pan.baidu.com/s/1hq1WQSs">链接</a>, 提取密码(pyfa)。</p>
-<h3><strong>NBA球员数据的爬取函数</strong></h3>
-<p>爬取数据有：</p>
-<div class="highlight"><pre>-  个人ID
--  基本信息
--  头像
--  生涯常规赛数据
--  生涯季后赛数据
-</pre></div>
-
-
-<p>下载地址为：<a href="http://pan.baidu.com/s/1ntFZMnZ">链接 ...</a></p> </div><!-- /.entry-content -->
-
-								<div class="medium primary btn"><a href="/articles/2015/06/matlab_func/" rel="bookmark" title="Permalink to MATLAB 实用函数">Read more <i class="icon-arrow-right"></i></a></div>
-
-
-
-								<div class="row tag-row">
-										<span>Tagged as : </span>
-											<a class="danger label" href="/tag/toolbox.html">Toolbox</a>
-											<a class="danger label" href="/tag/matlab.html">MATLAB</a>
-											<a class="danger label" href="/tag/quant.html">Quant</a>
-											<a class="danger label" href="/tag/spiders.html">Spiders</a>
+											<a class="danger label" href="/tag/cnn.html">CNN</a>
+											<a class="danger label" href="/tag/dl.html">Dl</a>
+											<a class="danger label" href="/tag/ml.html">ML</a>
 								</div>
 
 

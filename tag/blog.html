@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
 
-        <title>数据科学小站 - github pages</title>
+        <title>数据科学小站 - blog</title>
 		
 		<meta name="description" content="数据科学是一个专注于数据驱动和计算数学的博客，希望大家一起交流学习。">
 		<meta name="keywords" content="pelican，github，github pages，数据结构，算法，计算数学，张量分解，降维，特征提取，图像处理，机器学习，深度学习，编程语言，研究生生活，技术博客">
@@ -71,95 +71,35 @@
 		
 		         <ol id="post-list">
 				        <li><article class="hentry">
-				                <header> <h2 class="entry-title"><a href="/articles/2015/08/qtt_quickstart/" rel="bookmark" title="Permalink to QTT-Toolbox QuickStart">QTT-Toolbox QuickStart</a></h2> </header>
+				                <header> <h2 class="entry-title"><a href="/articles/2015/08/blog_create/" rel="bookmark" title="Permalink to 小白如何利用Github+pelican建站">小白如何利用Github+pelican建站</a></h2> </header>
 				                <footer class="post-info">
-				                    <!--<abbr class="published" title="2015-08-15T19:22:00+08:00"> 周六 15 八月 2015 </abbr>
+				                    <!--<abbr class="published" title="2015-08-18T13:41:00+08:00"> 周二 18 八月 2015 </abbr>
 <address class="vcard author">By <a class="url fn" href="/author/jsong.html">JSong</a></address>-->
 								 <address class="vcard author" style="font-style:italic;">
-									周六 15 八月 2015
+									周二 18 八月 2015
 										&nbsp;&nbsp;Write By <a class="url fn" href="/author/jsong.html">JSong</a>
 								  </address>
 									
 				                </footer><!-- /.post-info -->
-				                <div class="entry-content"> <h3><strong>QTT分解介绍</strong></h3>
-<p>QTT（Quantics Tensor Train）分解是一种适用于任意分层张量(包含多维数组)的张量分解方法, 通过对数组的反复折叠该分解可以达到降维和特征提取的作用。QTT已被证明是一种基于流形学习的降维工具和多尺度的特征提取工具。</p>
-<p><strong>定义：</strong>给定一个分层张量(包含向量、矩阵等多维数组)A，如果其有如下表示，</p>
-<div class="math">$$
-A= U_1 \bowtie U_2 \bowtie \cdots \bowtie U_d
-$$</div>
-<p>其中后面d-1个QTT核满足右正交条件, 则称之为A的QTT分解。</p>
-<h3><strong>工具箱介绍</strong></h3>
-<p>这是一个用MATLAB语言写的QTT-Toolbox，免费提供大家使用,使用后请注明引用,谢谢。工具箱将分层张量新定义成了一个类，分层张量之间的大部分运算都已实现。通过这个模块化编程，我们能更加简单的扩展编程。如果读者发现函数有bug或者实现算法能加速，请邮件告之作者，谢谢。</p>
-<p>=============================================</p>
-<p>JSong,20-Jul-2015</p>
-<p>Last Revision: 11-Aug-2015.</p>
-<p>Github:<a href="http://github.com/gasongjian/QTT/">http://github.com/gasongjian/QTT/</a></p>
-<p>citition ...</p><script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var align = "center",
-        indent = "0em",
-        linebreak = "false";
+				                <div class="entry-content"> <hr />
+<blockquote>
+<p>之前有一个微信公众号，但里面写技术文章太不方便，国内的很多博客对数学公式支持也不咋的，所以就萌生了自己建一个的想法。对于不懂Python,不懂HTML的小白，如何才能快速建站。</p>
+</blockquote>
+<h3><strong>快速开始</strong></h3>
+<p>上海电信弄了个精品网，然后国外网站的打开速度就慢了不是一点点，github的很多代码都下载不下来。对于数据科学工作者，这里提供一个各种软件和代码的集成包，可以让你快速开始Blog之路。</p>
+<p>(未完待续)</p>
+<h3><strong>第一步</strong></h3>
+<h3><strong>主题选择</strong></h3> </div><!-- /.entry-content -->
 
-    if (false) {
-        align = (screen.width < 768) ? "left" : align;
-        indent = (screen.width < 768) ? "0em" : indent;
-        linebreak = (screen.width < 768) ? 'true' : linebreak;
-    }
-    
-    var mathjaxscript = document.createElement('script');
-    var location_protocol = (false) ? 'https' : document.location.protocol;
-    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
-    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript'; 
-    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
-    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
-        "MathJax.Hub.Config({" +
-        "    config: ['MMLorHTML.js']," +
-        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
-        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
-        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: '"+ align +"'," +
-        "    displayIndent: '"+ indent +"'," +
-        "    showMathMenu: true," +
-        "    tex2jax: { " +
-        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
-        "        displayMath: [ ['$$','$$'] ]," +
-        "        processEscapes: true," +
-        "        preview: 'TeX'," +
-        "    }, " +
-        "    'HTML-CSS': { " +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
-        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
-        "    }, " +
-        "}); " +
-        "if ('default' !== 'default') {" +
-            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-        "}";
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
-}
-</script> </div><!-- /.entry-content -->
-
-								<div class="medium primary btn"><a href="/articles/2015/08/qtt_quickstart/" rel="bookmark" title="Permalink to QTT-Toolbox QuickStart">Read more <i class="icon-arrow-right"></i></a></div>
+								<div class="medium primary btn"><a href="/articles/2015/08/blog_create/" rel="bookmark" title="Permalink to 小白如何利用Github+pelican建站">Read more <i class="icon-arrow-right"></i></a></div>
 
 
 
 								<div class="row tag-row">
 										<span>Tagged as : </span>
-											<a class="danger label" href="/tag/toolbox.html">Toolbox</a>
-											<a class="danger label" href="/tag/github-pages.html">github pages</a>
-											<a class="danger label" href="/tag/qtt.html">QTT</a>
+											<a class="danger label" href="/tag/github.html">Github</a>
+											<a class="danger label" href="/tag/blog.html">blog</a>
+											<a class="danger label" href="/tag/pelican.html">pelican</a>
 								</div>
 
 

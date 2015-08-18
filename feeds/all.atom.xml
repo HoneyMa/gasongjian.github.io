@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>数据科学小站</title><link href="/" rel="alternate"></link><link href="/feeds/all.atom.xml" rel="self"></link><id>/</id><updated>2015-08-16T20:27:00+08:00</updated><entry><title>QTT: 一种自带并行的数组结构</title><link href="/articles/2015/08/qtt_intro_1/" rel="alternate"></link><updated>2015-08-16T14:21:00+08:00</updated><author><name>JSong</name></author><id>tag:,2015-08-16:articles/2015/08/qtt_intro_1/</id><summary type="html">&lt;p&gt;我们知道很多算法内部都是一些基本运算的组合，比如向量加减法，矩阵加减，矩阵-向量乘积，矩阵乘法，hadamard积，kronecker张量积，元素索引等。而QTT对于这些运算都可以很简单的实现并行。&lt;/p&gt;
+&lt;p&gt;首先我们来看一下，什么是QTT表示。给定一个多维数组A，其可以是向量，矩阵，或者更高维的数组，这都不是问题。 设A的维数为&lt;span class="math"&gt;\(l\)&lt;/span&gt;，如果它有如下的表示，则我们称其为多维数组A的QTT分解。&lt;/p&gt;
+&lt;div class="math"&gt;$$
+A= U_1 \bowtie U_2 \bowtie \cdots \bowtie U_d
+$$&lt;/div&gt;
+&lt;p&gt;那读者肯定得问这里的&lt;span class="math"&gt;\(U_k\)&lt;/span&gt;和&lt;span class="math"&gt;\(\bowtie\)&lt;/span&gt;是什么鬼，先不急，假设你已经懂了，就把它看成是一种编码。按这个编码我们来看看常见的运算是怎么实现的。&lt;/p&gt;
+&lt;p&gt;1.加法&lt;/p&gt;
+&lt;div class="math"&gt;$$
+  A+B=\left[\begin{array}{cc} 
+      U_1 &amp;amp; V_1   
+    \end{array} \right] \bowtie \left[ \begin{array}{cc}    
+                                  U_{2} &amp;amp;  \\                                 
+                                   &amp;amp; V_{2}                                 
+                                \end{array} \right] \bowtie \cdots \bowtie  \left[ \begin{array}{c}                             
+                                                                                               U_d \\                                                                                           
+                                                                                                V_d                                                                                                     
+                                                                                                \end{array}\right]
+  $$&lt;/div&gt;
+&lt;p&gt;比如说我们有d台机器，其中&lt;span class="math"&gt;\(U_k\)&lt;/span&gt;和&lt;span class="math"&gt;\(V_k\)&lt;/span&gt;存在第K台机器上，则为了获得 数组A和B的加法，我们只需要在每台机器上把&lt;span class="math"&gt;\(U_k\)&lt;/span&gt;和&lt;span class="math"&gt;\(V_k\)&lt;/span&gt;组合在一起就OK啦，事实上除了加法，其他的大部分运算也都可以。&lt;/p&gt;
+&lt;p&gt;2.矩阵乘法&lt;/p&gt;
+&lt;div class="math"&gt;$$
+  AB=A\bullet _1^2 B=(U_1 \bullet _1^2 V_1) \bowtie \cdots \bowtie (U_d \bullet _1^2 V_d);
+  $$&lt;/div&gt;
+&lt;p&gt;3.矩阵-向量乘法&lt;/p&gt;
+&lt;div class="math"&gt;$$
+  AX=A\bullet _1^2 X=(U_1 \bullet _1^2 X_1) \bowtie \cdots \bowtie (U_d \bullet _1^2 X_d);
+  $$&lt;/div&gt;
+&lt;p&gt;4.内积&lt;/p&gt;
+&lt;div class="math"&gt;$$
+  &amp;lt;A,B&amp;gt;=A\bullet _{12}^{12} B=(U_1 \bullet _{12}^{12} V_1) \bowtie \cdots \bowtie (U_d \bullet _{12}^{12} V_d);
+  $$&lt;/div&gt;
+&lt;p&gt;5.Kronecker张量积&lt;/p&gt;
+&lt;div class="math"&gt;$$
+  A\otimes B=U_1\bowtie \cdots \bowtie U_d \bowtie V_1 \bowtie \cdots \bowtie V_d;
+  $$&lt;/div&gt;
+&lt;p&gt;6.转置&lt;/p&gt;
+&lt;div class="math"&gt;$$
+  A^{T}=U_1 ^{\underline{T}} \bowtie \cdots \bowtie U_d^{\underline{T}};
+  $$&lt;/div&gt;
+&lt;p&gt;7.对角化算子&lt;/p&gt;
+&lt;div class="math"&gt;\begin{align*}
+  diag(A)&amp;amp;=\underline{diag} (U_1) \bowtie \underline{diag}(U_2) \bowtie \cdots \bowtie \underline{diag}(U_d)\\
+  diag(X)&amp;amp;=\underline{diag} (X_1) \bowtie \underline{diag}(X_2) \bowtie \cdots \bowtie \underline{diag}(X_d)
+  \end{align*}&lt;/div&gt;
+&lt;p&gt;注：第一个是矩阵的对角化，第二个是向量的对角化&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+    
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript'; 
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="QTT"></category></entry><entry><title>QTT-Toolbox QuickStart</title><link href="/articles/2015/08/qtt_quickstart/" rel="alternate"></link><updated>2015-08-16T20:27:00+08:00</updated><author><name>JSong</name></author><id>tag:,2015-08-15:articles/2015/08/qtt_quickstart/</id><summary type="html">&lt;h3&gt;&lt;strong&gt;QTT分解介绍&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;QTT（Quantics Tensor Train）分解是一种适用于任意分层张量(包含多维数组)的张量分解方法, 通过对数组的反复折叠该分解可以达到降维和特征提取的作用。QTT已被证明是一种基于流形学习的降维工具和多尺度的特征提取工具。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;定义：&lt;/strong&gt;给定一个分层张量(包含向量、矩阵等多维数组)A，如果其有如下表示，&lt;/p&gt;
+&lt;div class="math"&gt;$$
+A= U_1 \bowtie U_2 \bowtie \cdots \bowtie U_d
+$$&lt;/div&gt;
+&lt;p&gt;其中后面d-1个QTT核满足右正交条件, 则称之为A的QTT分解。&lt;/p&gt;
+&lt;h3&gt;&lt;strong&gt;工具箱介绍&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;这是一个用MATLAB语言写的QTT-Toolbox，免费提供大家使用,使用后请注明引用,谢谢。工具箱将分层张量新定义成了一个类，分层张量之间的大部分运算都已实现。通过这个模块化编程，我们能更加简单的扩展编程。如果读者发现函数有bug或者实现算法能加速，请邮件告之作者，谢谢。&lt;/p&gt;
+&lt;p&gt;=============================================&lt;/p&gt;
+&lt;p&gt;JSong,20-Jul-2015&lt;/p&gt;
+&lt;p&gt;Last Revision: 11-Aug-2015.&lt;/p&gt;
+&lt;p&gt;Github:&lt;a href="http://github.com/gasongjian/QTT/"&gt;http://github.com/gasongjian/QTT/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;citition: &lt;em&gt;基于量子化张量列(QTT)模型的特征提取&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;=============================================&lt;/p&gt;
+&lt;p&gt;1.自定义类 &lt;strong&gt;layer_tensor&lt;/strong&gt;(分层张量)&lt;/p&gt;
+&lt;p&gt;不同于TT-Toolbox, QTT-Toolbox中每一个QTT核以分层张量的形式存储, QTT分解相当于将以一个多维数组分解成多个分层张量的某种乘积。&lt;/p&gt;
+&lt;p&gt;目前分层张量已经实现如下功能：l打头的代表外层用矩阵乘法,lk打头代表外层用kronecker乘积，u打头代表算子作用于子张量。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;初始化&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;rand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="c"&gt;%一个大小为2*5，子模数为3*4的分层张量    &lt;/span&gt;
+&lt;span class="n"&gt;lt&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="n"&gt;layer_tensor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;   
+&lt;span class="n"&gt;lt&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="n"&gt;layer_tensor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;(:),[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;],[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;]);&lt;/span&gt; &lt;span class="c"&gt;%给定大小和子模数&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;元素引用和赋值&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;用圆括号引用子张量, 用大括号引用元素(见论文).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="n"&gt;lt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nb"&gt;size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;  
+&lt;span class="n"&gt;scale&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="n"&gt;lt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;scale&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;   
+&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="n"&gt;lt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;    
+&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="n"&gt;lt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;      
+&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="n"&gt;lt&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;    
+&lt;span class="n"&gt;lt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)=&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;分层kronecker乘积&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;为加快速度，本工具箱将该运算转化成了矩阵乘法，再经过一定的置换得到新的分层张量，具体可参见论文。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;lt&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="n"&gt;lkron&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;lt1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;lt2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;    
+&lt;span class="c"&gt;% lt(1,1)=\sum kron(lt1(1,i),lt2(i,1))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;分层外积&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;为加快速度，该运算的实现利用了矩阵乘法和一定的置换, 具体可参见论文。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;louter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;lt1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;lt2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;广义张量积&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;利用该运算，可以简单实现两个QTT格式下的矩阵之间的乘法。   &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;lktimes&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;lt1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;lt2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;types&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;   
+&lt;span class="c"&gt;% 可验证下面两个表达式相等    &lt;/span&gt;
+&lt;span class="n"&gt;L1&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="n"&gt;lktimes&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;lkron&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;lt1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;lt2&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="n"&gt;lkron&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;lt3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;lt4&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="n"&gt;types&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;      
+&lt;span class="n"&gt;L2&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="n"&gt;lkron&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;lktimes&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;lt1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;lt3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;types&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="n"&gt;lktimes&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;lt2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;lt4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;types&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;      
+&lt;span class="nb"&gt;isequal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;L1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;L2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;其他&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;double&lt;/code&gt;：转换成多维数组, 如果大小为1, 则转化为子张量    &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;size&lt;/code&gt;：  默认返回分层张量的大小,如上例中的[2;5]  &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ctranspose&lt;/code&gt;: 外转置, lt1=lt'; 则lt1大小为5&lt;em&gt;3&lt;/em&gt;4*2；      &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;utranspose&lt;/code&gt;： 内转置, 如果子张量是矩阵，则转置所有子张量     &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;udiag&lt;/code&gt;：    内对角化, 子张量是向量或者矩阵     &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;lt2cell&lt;/code&gt;：  将分层张量转化为2*5的cell, 每一个cell内都是一个子张量    &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ltfun&lt;/code&gt; ：   类似于cellfun,非常实用的函数。 矩阵情形中ltfun(lt,@(x)x',[4;3])等价于utranspose     &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;minus&lt;/code&gt;,&lt;code&gt;plus&lt;/code&gt;： 加法和减法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;=============================================&lt;/p&gt;
+&lt;p&gt;2.&lt;strong&gt;QTT分解&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;张量的基本运算：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;nkron&lt;/code&gt;: 张量的Kronecker乘法，要求两个张量的维数相同   &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;outer&lt;/code&gt;：张量的外积   &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gtimes&lt;/code&gt;:张量的广义乘法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;QTT分解函数：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;qtt&lt;/code&gt;：适用于多维数组的QTT分解  &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gqtt&lt;/code&gt;： 适用于任意分层张量的QTT分解，同时也支持多维数组.采用方法：循环&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;其他函数：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;qtt2ltcore&lt;/code&gt;:将qtt返回的结构体转化成gqtt函数的输出格式   &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ltsplit&lt;/code&gt;:获取QTT分解的QTT分量   &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;clkron&lt;/code&gt;: 适用于元胞的lkron函数，可用于QTT格式的还原   &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ltextend&lt;/code&gt;:适用于分层张量的延拓函数   &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;demo_feature_detection&lt;/code&gt; :一个简单的例子&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;使用方法：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="nt"&gt;x&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nt"&gt;rand&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;6&lt;/span&gt;&lt;span class="o"&gt;^&lt;/span&gt;&lt;span class="nt"&gt;5&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="nt"&gt;1&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;&lt;span class="nt"&gt;y&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nt"&gt;2&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nt"&gt;x&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nt"&gt;rand&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;6&lt;/span&gt;&lt;span class="o"&gt;^&lt;/span&gt;&lt;span class="nt"&gt;5&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="nt"&gt;1&lt;/span&gt;&lt;span class="o"&gt;)*&lt;/span&gt;&lt;span class="nt"&gt;0&lt;/span&gt;&lt;span class="nc"&gt;.1&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;     
+    &lt;span class="nt"&gt;A&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;;y&amp;#39;&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;   
+    &lt;span class="nt"&gt;A&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nt"&gt;layer_tensor&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;A&lt;/span&gt;&lt;span class="o"&gt;(:),&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;^&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;    
+    &lt;span class="nt"&gt;ltcore&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nt"&gt;gqtt&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;A&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="nt"&gt;1e-4&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;sym&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;     
+    &lt;span class="nt"&gt;A1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nt"&gt;clkron&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;ltcore&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;   
+    &lt;span class="nt"&gt;X&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nt"&gt;ltsplit&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;clkron&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;ltcore&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;1&lt;/span&gt;&lt;span class="nd"&gt;:3&lt;/span&gt;&lt;span class="o"&gt;)),&lt;/span&gt;&lt;span class="nt"&gt;clkron&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;ltcore&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;4&lt;/span&gt;&lt;span class="nd"&gt;:5&lt;/span&gt;&lt;span class="o"&gt;)),&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;kron&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;===================================================================        &lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+    
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript'; 
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="Toolbox"></category><category term="github pages"></category><category term="QTT"></category></entry></feed>

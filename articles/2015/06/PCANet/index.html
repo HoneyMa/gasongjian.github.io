@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="zh">
 <head>
 
-        <title>数据科学小站</title>
+        <title>导读：PCANet,Simple Deep Learning Baseline for Image Classification?</title>
 		
-		<meta name="description" content="数据科学是一个专注于数据驱动和计算数学的博客，希望大家一起交流学习。">
+		<meta name="description" content="">
 		<meta name="keywords" content="pelican，github，github pages，数据结构，算法，计算数学，张量分解，降维，特征提取，图像处理，机器学习，深度学习，编程语言，研究生生活，技术博客">
 		
         <meta charset="utf-8" />
@@ -62,39 +62,71 @@
               </ul>
             </div>
 
-<section id="content">
+<section id="content" class="body">
 
    <div class="row">
-
         <div class="eleven columns">
-<h2>Articles in the Toolbox category</h2>
-		
-		         <ol id="post-list">
-				        <li><article class="hentry">
-				                <header> <h2 class="entry-title"><a href="/articles/2015/08/qtt_quickstart/" rel="bookmark" title="Permalink to QTT-Toolbox QuickStart">QTT-Toolbox QuickStart</a></h2> </header>
-				                <footer class="post-info">
-				                    <!--<abbr class="published" title="2015-08-15T19:22:00+08:00"> 周六 15 八月 2015 </abbr>
-<address class="vcard author">By <a class="url fn" href="/author/jsong.html">JSong</a></address>-->
-								 <address class="vcard author" style="font-style:italic;">
-									周六 15 八月 2015
-										&nbsp;&nbsp;Write By <a class="url fn" href="/author/jsong.html">JSong</a>
-								  </address>
-									
-				                </footer><!-- /.post-info -->
-				                <div class="entry-content"> <h3><strong>QTT分解介绍</strong></h3>
-<p>QTT（Quantics Tensor Train）分解是一种适用于任意分层张量(包含多维数组)的张量分解方法, 通过对数组的反复折叠该分解可以达到降维和特征提取的作用。QTT已被证明是一种基于流形学习的降维工具和多尺度的特征提取工具。</p>
-<p><strong>定义：</strong>给定一个分层张量(包含向量、矩阵等多维数组)A，如果其有如下表示，</p>
+
+
+            <header>
+              <h2 class="entry-title">
+                <a href="/articles/2015/06/PCANet/" rel="bookmark"
+                   title="Permalink to 导读：PCANet,Simple Deep Learning Baseline for Image Classification?">导读：PCANet,Simple Deep Learning Baseline for Image Classification?</a></h2>
+           
+            </header>
+            <footer class="post-info">
+              <!--
+			  <abbr class="published" title="2015-06-06T19:22:00+08:00">
+                周六 06 六月 2015
+              </abbr>
+              <address class="vcard author">
+                By <a class="url fn" href="/author/jsong.html">JSong</a>
+              </address>
+			  -->
+			  <address class="vcard author" style="font-style:italic;margin-bottom:-10px;">
+				周六 06 六月 2015
+					&nbsp;&nbsp;Write By <a class="url fn" href="/author/jsong.html">JSong</a>
+	
+			  </address>
+			  <hr />			  
+            </footer><!-- /.post-info -->
+            <div class="entry-content">
+              <hr />
+<blockquote>
+<p>之前看过一句话，未来领域类专家需求将越来越少，而相应的数据挖掘专家需求将不断增加，这时因为深度学习的核心在于其自适应的特征提取。PCANet是一个基于CNN的简化Deep Learning模型。之所以读它是因为它是基于PCA(SVD)的，其卷积核从图像信号的某种SVD分解得到的，而这也是张量列分解的核心之一。该网络与CNN相比最大的地方在于卷积核是直接通过PCA计算得到的，而不是像CNN一样通过反馈迭代得到的。</p>
+</blockquote>
+<p><img alt="经典卷积网络示意图" src="/images/cnn1.png" /></p>
+<p><img alt="PCANet示意图" src="/images/pcanet1.png" /></p>
+<p>从上图可以看到，PCANet的训练分为三个步骤(stage)，前两个stage很相似，都是去平均，然后PCA取主成分并卷积，最后一步是二值化和直方图量化。下面按步骤介绍PCANet的训练过程：</p>
+<p>一、特征提取</p>
+<p>1、First stage:</p>
+<p><img alt="First stage" src="/images/pcanet2.png" /></p>
+<p>1)、选取一个<span class="math">\(k_1 \times k_2\)</span>的窗口(通常为<span class="math">\(3 \times 3\)</span>、<span class="math">\(5\times 5\)</span>、<span class="math">\(7\times 7\)</span>)来滑动选取图片的局部特征。每张<span class="math">\(m\times n\)</span>大小的图片<span class="math">\(I_i\)</span>经过滑动窗口提取局部特征之后，就变成了<span class="math">\((m-k_1+1)\cdot (n-k_2+1)\)</span>个k1<em>k2大小的patch(注：在论文中patch个数是mn，代码中是(m-k1+1)</em>(n-k2+1), 为方便书写，以下都写为mn),将其写成<span class="math">\(k_1k_2\times mn\)</span>列的矩阵<span class="math">\(B_i\)</span>，每一列代表一个局部特征patch。相应的滑动选取公式为：</p>
 <div class="math">$$
-A= U_1 \bowtie U_2 \bowtie \cdots \bowtie U_d
+x_{ij}=Vec(I_i(j1:j1+k1-1,j2:j2+k2-1))
 $$</div>
-<p>其中后面d-1个QTT核满足右正交条件, 则称之为A的QTT分解。</p>
-<h3><strong>工具箱介绍</strong></h3>
-<p>这是一个用MATLAB语言写的QTT-Toolbox，免费提供大家使用,使用后请注明引用,谢谢。工具箱将分层张量新定义成了一个类，分层张量之间的大部分运算都已实现。通过这个模块化编程，我们能更加简单的扩展编程。如果读者发现函数有bug或者实现算法能加速，请邮件告之作者，谢谢。</p>
-<p>=============================================</p>
-<p>JSong,20-Jul-2015</p>
-<p>Last Revision: 11-Aug-2015.</p>
-<p>Github:<a href="http://github.com/gasongjian/QTT/">http://github.com/gasongjian/QTT/</a></p>
-<p>citition ...</p><script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+<p>其中<span class="math">\(j=j1+(j2-1)*(m-k1+1)\)</span>.</p>
+<p>2)、将以上矩阵按列进行去平均，便完成了对单张图片的特征提取操作。</p>
+<p>3、对所有N张图片执行以上操作，将特征并排在一起，得到一个新的数据矩阵X，每一列含有<span class="math">\(k_1k_2\)</span>个元素，一共有Nmn列。</p>
+<p>4、对这个X矩阵做PCA，取前L1个特征向量，作为该步骤的filter。</p>
+<p>5、把这L1个特征向量的每一列（每一列含有<span class="math">\(k_1k_2\)</span>个元素）重排列为一个patch，这样就得到了L1个<span class="math">\(k_1\times k_2\)</span>的卷积核<span class="math">\(\{W_l^i\}_{l=1}^{L1}\)</span>。</p>
+<p>6、然后就是对每一张图片，都用这L1个卷积核做一次卷积。<span class="math">\(I^l_i=I_i \star W_l^i\)</span></p>
+<p>2、 Second stage：</p>
+<p><img alt="Second stage：" src="/images/pcanet3.png" /></p>
+<p>步骤同first stage，此时输入图片数为N*L1张，通过PCA得到L2个卷积核，输出<span class="math">\(NL1L_2\)</span>张图片.</p>
+<p>3、Output layer: hashing and histogram</p>
+<p>Hashing: 二值化</p>
+<p>首先是对Second stage的每个卷积的结果做二值化，每一组得到L2张二值图片，对这L2张二值图片进行十进制编码，得到一张新的十进制图片，元素取值范围为[0, <span class="math">\(2^{L1}-1\)</span>]</p>
+<p>Histogram：直方图统计</p>
+<p>对每L1张图片做histBlock到vector的变换，假设对原图<span class="math">\(128\times 48\)</span>的图选取<span class="math">\(32\times 32\)</span>的histBlock，overlap系数0.5，原图有14个histBlock，将histBlock变换为vector，得到<span class="math">\(1024\times 14\)</span>的矩阵。对这个<span class="math">\(1024\times 14\)</span>的矩阵做直方图统计，因为选了256个区间，所以得到的Bhist矩阵大小为<span class="math">\(256\times 14\)</span>。最后将这个矩阵转化为$28672(L1=8，28672=256\times 14\times 8）维的vector，这样就完成了一张图片的PCANet的特征提取。</p>
+<p>二、分类器训练</p>
+<p>将列向量放到训练好的SVM中进行分类</p>
+<p>三、论文及代码下载：</p>
+<p>论文：http://arxiv.org/abs/1404.3606v2</p>
+<p>matlab代码：https://github.com/alanhuang1990/PCANET</p>
+<p>c++代码：https://github.com/Ldpe2G/PCANet</p>
+<p>亦可在我的百度网盘分享中下载: <a href="http://pan.baidu.com/s/1mgpD8SS">链接</a>, 提取密码为(67nw).</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
         linebreak = "false";
@@ -149,72 +181,48 @@ $$</div>
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-</script> </div><!-- /.entry-content -->
+</script>
+            </div><!-- /.entry-content -->
+			
+			
+			<ul style="float:right;">
+				<li>
+					◄&nbsp;&nbsp;<a href="/articles/2015/06/matlab_func/">
+						MATLAB 实用函数
+					</a>
+				</li>
+				<li>
+					►&nbsp;&nbsp;<a href="/articles/2015/08/qtt_quickstart/">
+						QTT-Toolbox QuickStart
+					</a>
+				</li>
+			</ul>
+			
+			
 
-								<div class="medium primary btn"><a href="/articles/2015/08/qtt_quickstart/" rel="bookmark" title="Permalink to QTT-Toolbox QuickStart">Read more <i class="icon-arrow-right"></i></a></div>
-
-
-
-								<div class="row tag-row">
-										<span>Tagged as : </span>
-											<a class="danger label" href="/tag/toolbox.html">Toolbox</a>
-											<a class="danger label" href="/tag/github-pages.html">github pages</a>
-											<a class="danger label" href="/tag/qtt.html">QTT</a>
-								</div>
-
-
-
-				        </article></li>
-				        <li><article class="hentry">
-				                <header> <h2 class="entry-title"><a href="/articles/2015/06/matlab_func/" rel="bookmark" title="Permalink to MATLAB 实用函数">MATLAB 实用函数</a></h2> </header>
-				                <footer class="post-info">
-				                    <!--<abbr class="published" title="2015-06-06T19:22:00+08:00"> 周六 06 六月 2015 </abbr>
-<address class="vcard author">By <a class="url fn" href="/author/jsong.html">JSong</a></address>-->
-								 <address class="vcard author" style="font-style:italic;">
-									周六 06 六月 2015
-										&nbsp;&nbsp;Write By <a class="url fn" href="/author/jsong.html">JSong</a>
-								  </address>
-									
-				                </footer><!-- /.post-info -->
-				                <div class="entry-content"> <h3><strong>MATLAB个人工具箱(MATLAB)</strong></h3>
-<ul>
-<li><code>mymail.m</code> 可以利用MATLAB发送邮件(支持附件和群发)，非常实用的函数，适用于：耗时很长的脚本完成后通知作者；外加定时器后用于信息推送；家庭监视器紧急通知等等</li>
-<li><code>textwrite.m</code> 可以将元胞数组写入文本文件当中，支持足够大的元胞.</li>
-<li><code>qrcode.m</code> 二维码生成器.</li>
-<li><code>md5.m</code> MD5校验、数字指纹。适用于程序的安全设计，如可以设计一个程序，使得其需要密码才能使用.</li>
-<li><code>getmac.m</code> 个人PC的MAC地址获取. 个人电脑网卡的地址是唯一不变的，亦可用于程序的安全设计，使得一个程序只能在指点电脑才能正确运行.</li>
-<li><code>codekernal.m</code> Unicode编码的转换.</li>
-<li><code>addtoolbox.m</code> 将函数添加至matlab工具箱</li>
-</ul>
-<p>下载地址：<a href="http://pan.baidu.com/s/1hq1WQSs">链接</a>, 提取密码(pyfa)。</p>
-<h3><strong>NBA球员数据的爬取函数</strong></h3>
-<p>爬取数据有：</p>
-<div class="highlight"><pre>-  个人ID
--  基本信息
--  头像
--  生涯常规赛数据
--  生涯季后赛数据
-</pre></div>
-
-
-<p>下载地址为：<a href="http://pan.baidu.com/s/1ntFZMnZ">链接 ...</a></p> </div><!-- /.entry-content -->
-
-								<div class="medium primary btn"><a href="/articles/2015/06/matlab_func/" rel="bookmark" title="Permalink to MATLAB 实用函数">Read more <i class="icon-arrow-right"></i></a></div>
+			
+		<!-- 多说评论框 start -->
+		<!-- data-thread-key="" data-title="导读：PCANet,Simple Deep Learning Baseline for Image Classification?" data-url="articles/2015/06/PCANet/" -->
+		<div class="ds-thread" data-thread-key="" data-title="导读：PCANet,Simple Deep Learning Baseline for Image Classification?" data-url="articles/2015/06/PCANet/" ></div>
+		<!-- 多说评论框 end -->
+		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+		<script type="text/javascript">
+		var duoshuoQuery = {short_name:gasongjian};
+			(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+			})();
+			</script>
+	
+		<!-- 多说公共JS代码 end -->
 
 
 
-								<div class="row tag-row">
-										<span>Tagged as : </span>
-											<a class="danger label" href="/tag/toolbox.html">Toolbox</a>
-											<a class="danger label" href="/tag/matlab.html">MATLAB</a>
-											<a class="danger label" href="/tag/quant.html">Quant</a>
-											<a class="danger label" href="/tag/spiders.html">Spiders</a>
-								</div>
 
-
-
-				        </article></li>
-				</ol><!-- /#posts-list -->
 
         </div><!-- /.eleven.columns -->
         
@@ -278,10 +286,8 @@ $$</div>
 
 </div> </div><!-- /.row -->
 
-<p class="paginator">
-    Page 1 / 1
-</p>
-</section><!-- /#content -->
+
+</section>
 
        </div><!-- /.row -->
     </div><!-- /.container -->

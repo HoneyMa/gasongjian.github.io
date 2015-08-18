@@ -5,7 +5,7 @@
         <title>QTT-Toolbox QuickStart</title>
 		
 		<meta name="description" content="">
-		<meta name="keywords" content="Linux，pelican，github，github pages，数据结构，算法，编程语言，开源软件，互联网，程序员找工作，移动互联网，生活时尚，情感交流，研究生生活，技术博客">
+		<meta name="keywords" content="pelican，github，github pages，数据结构，算法，计算数学，张量分解，降维，特征提取，图像处理，机器学习，深度学习，编程语言，研究生生活，技术博客">
 		
         <meta charset="utf-8" />
 
@@ -38,7 +38,7 @@
         <div class="row">
 
           <header id="banner" class="body">
-                  <h1><a href="">数据科学 <strong>Data is All, ALL is Data</strong></a></h1>
+                  <h1><a href="">数据科学小站 <strong>Data is All, ALL is Data</strong></a></h1>
           </header><!-- /#banner -->
 
             <div id="navigation" class="navbar row">
@@ -47,10 +47,10 @@
               <ul class="columns">
                 <li><a href="/">Home</a></li>
 				
-					<li><a href="/index2.html">Publications</a></li>
-					<li><a href="/index3.html">Projects</a></li>
-					<li><a href="/index4.html">Data</a></li>
-					<li><a href="/index5.html">About me</a></li>
+					<li><a target="_blank" href="/index2.html">Publications</a></li>
+					<li><a target="_blank" href="/index3.html">Projects</a></li>
+					<li><a target="_blank" href="/index4.html">Data</a></li>
+					<li><a target="_blank" href="/index5.html">About me</a></li>
 				
 				<!--
 					<li><a href="/index2.html">Publications</a></li>
@@ -106,17 +106,15 @@ $$</div>
 <p>Github:<a href="http://github.com/gasongjian/QTT/">http://github.com/gasongjian/QTT/</a></p>
 <p>citition: <em>基于量子化张量列(QTT)模型的特征提取</em></p>
 <p>=============================================</p>
-<ol>
-<li>自定义类 <strong>layer_tensor</strong>(分层张量)</li>
-</ol>
+<p>1.自定义类 <strong>layer_tensor</strong>(分层张量)</p>
 <p>不同于TT-Toolbox, QTT-Toolbox中每一个QTT核以分层张量的形式存储, QTT分解相当于将以一个多维数组分解成多个分层张量的某种乘积。</p>
 <p>目前分层张量已经实现如下功能：l打头的代表外层用矩阵乘法,lk打头代表外层用kronecker乘积，u打头代表算子作用于子张量。</p>
 <ul>
 <li>
 <p><strong>初始化</strong></p>
-<div class="highlight"><pre>A=rand(2,3,4,5);%一个大小为2*5，子模数为3*4的分层张量    
-lt=layer_tensor(A);   
-lt=layer_tensor(A(:),[2;5],[3;4]); %给定大小和子模数
+<div class="highlight"><pre><span class="n">A</span><span class="p">=</span><span class="nb">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span><span class="c">%一个大小为2*5，子模数为3*4的分层张量    </span>
+<span class="n">lt</span><span class="p">=</span><span class="n">layer_tensor</span><span class="p">(</span><span class="n">A</span><span class="p">);</span>   
+<span class="n">lt</span><span class="p">=</span><span class="n">layer_tensor</span><span class="p">(</span><span class="n">A</span><span class="p">(:),[</span><span class="mi">2</span><span class="p">;</span><span class="mi">5</span><span class="p">],[</span><span class="mi">3</span><span class="p">;</span><span class="mi">4</span><span class="p">]);</span> <span class="c">%给定大小和子模数</span>
 </pre></div>
 
 
@@ -124,12 +122,12 @@ lt=layer_tensor(A(:),[2;5],[3;4]); %给定大小和子模数
 <li>
 <p><strong>元素引用和赋值</strong></p>
 <p>用圆括号引用子张量, 用大括号引用元素(见论文).</p>
-<div class="highlight"><pre><span class="nt">r</span><span class="o">=</span><span class="nt">lt</span><span class="nc">.size</span><span class="o">;</span>  
-<span class="nt">scale</span><span class="o">=</span><span class="nt">lt</span><span class="nc">.scale</span><span class="o">;</span>   
-<span class="nt">A</span><span class="o">=</span><span class="nt">lt</span><span class="o">(</span><span class="nt">1</span><span class="o">,</span><span class="nt">2</span><span class="o">);</span>    
-<span class="nt">A</span><span class="o">=</span><span class="nt">lt</span><span class="o">(</span><span class="nt">1</span><span class="nd">:2</span><span class="o">,</span><span class="nt">5</span><span class="o">);</span>      
-<span class="nt">A</span><span class="o">=</span><span class="nt">lt</span><span class="p">{</span><span class="m">3</span><span class="o">,</span><span class="m">4</span><span class="p">}</span><span class="o">;</span>    
-<span class="nt">lt</span><span class="o">(</span><span class="nt">1</span><span class="o">,</span><span class="nt">1</span><span class="o">)=</span><span class="nt">A</span><span class="o">;</span>
+<div class="highlight"><pre><span class="n">r</span><span class="p">=</span><span class="n">lt</span><span class="p">.</span><span class="nb">size</span><span class="p">;</span>  
+<span class="n">scale</span><span class="p">=</span><span class="n">lt</span><span class="p">.</span><span class="n">scale</span><span class="p">;</span>   
+<span class="n">A</span><span class="p">=</span><span class="n">lt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>    
+<span class="n">A</span><span class="p">=</span><span class="n">lt</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>      
+<span class="n">A</span><span class="p">=</span><span class="n">lt</span><span class="p">{</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">};</span>    
+<span class="n">lt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)=</span><span class="n">A</span><span class="p">;</span>
 </pre></div>
 
 
@@ -137,8 +135,8 @@ lt=layer_tensor(A(:),[2;5],[3;4]); %给定大小和子模数
 <li>
 <p><strong>分层kronecker乘积</strong></p>
 <p>为加快速度，本工具箱将该运算转化成了矩阵乘法，再经过一定的置换得到新的分层张量，具体可参见论文。</p>
-<div class="highlight"><pre>lt=lkron(lt1,lt2);    
-% lt(1,1)=\sum kron(lt1(1,i),lt2(i,1))
+<div class="highlight"><pre><span class="n">lt</span><span class="p">=</span><span class="n">lkron</span><span class="p">(</span><span class="n">lt1</span><span class="p">,</span><span class="n">lt2</span><span class="p">);</span>    
+<span class="c">% lt(1,1)=\sum kron(lt1(1,i),lt2(i,1))</span>
 </pre></div>
 
 
@@ -146,7 +144,7 @@ lt=layer_tensor(A(:),[2;5],[3;4]); %给定大小和子模数
 <li>
 <p><strong>分层外积</strong></p>
 <p>为加快速度，该运算的实现利用了矩阵乘法和一定的置换, 具体可参见论文。</p>
-<div class="highlight"><pre>louter(lt1,lt2);
+<div class="highlight"><pre><span class="n">louter</span><span class="p">(</span><span class="n">lt1</span><span class="p">,</span><span class="n">lt2</span><span class="p">);</span>
 </pre></div>
 
 
@@ -154,11 +152,11 @@ lt=layer_tensor(A(:),[2;5],[3;4]); %给定大小和子模数
 <li>
 <p><strong>广义张量积</strong></p>
 <p>利用该运算，可以简单实现两个QTT格式下的矩阵之间的乘法。   </p>
-<div class="highlight"><pre>lktimes(lt1,lt2,types);   
-% 可验证下面两个表达式相等    
-L1=lktimes(lkron(lt1,lt2),lkron(lt3,lt4),types);      
-L2=lkron(lktimes(lt1,lt3,types),lktimes(lt2,lt4,types));      
-isequal(L1,L2)
+<div class="highlight"><pre><span class="n">lktimes</span><span class="p">(</span><span class="n">lt1</span><span class="p">,</span><span class="n">lt2</span><span class="p">,</span><span class="n">types</span><span class="p">);</span>   
+<span class="c">% 可验证下面两个表达式相等    </span>
+<span class="n">L1</span><span class="p">=</span><span class="n">lktimes</span><span class="p">(</span><span class="n">lkron</span><span class="p">(</span><span class="n">lt1</span><span class="p">,</span><span class="n">lt2</span><span class="p">),</span><span class="n">lkron</span><span class="p">(</span><span class="n">lt3</span><span class="p">,</span><span class="n">lt4</span><span class="p">),</span><span class="n">types</span><span class="p">);</span>      
+<span class="n">L2</span><span class="p">=</span><span class="n">lkron</span><span class="p">(</span><span class="n">lktimes</span><span class="p">(</span><span class="n">lt1</span><span class="p">,</span><span class="n">lt3</span><span class="p">,</span><span class="n">types</span><span class="p">),</span><span class="n">lktimes</span><span class="p">(</span><span class="n">lt2</span><span class="p">,</span><span class="n">lt4</span><span class="p">,</span><span class="n">types</span><span class="p">));</span>      
+<span class="nb">isequal</span><span class="p">(</span><span class="n">L1</span><span class="p">,</span><span class="n">L2</span><span class="p">)</span>
 </pre></div>
 
 
@@ -178,9 +176,7 @@ isequal(L1,L2)
 <li><code>minus</code>,<code>plus</code>： 加法和减法</li>
 </ul>
 <p>=============================================</p>
-<ol>
-<li><strong>QTT分解</strong></li>
-</ol>
+<p>2.<strong>QTT分解</strong></p>
 <p>张量的基本运算：</p>
 <ul>
 <li><code>nkron</code>: 张量的Kronecker乘法，要求两个张量的维数相同   </li>
@@ -200,7 +196,7 @@ isequal(L1,L2)
 <li><code>ltextend</code>:适用于分层张量的延拓函数   </li>
 <li><code>demo_feature_detection</code> :一个简单的例子</li>
 </ul>
-<p>使用方法：   </p>
+<p>使用方法：</p>
 <div class="highlight"><pre>    <span class="nt">x</span><span class="o">=</span><span class="nt">rand</span><span class="o">(</span><span class="nt">6</span><span class="o">^</span><span class="nt">5</span><span class="o">,</span><span class="nt">1</span><span class="o">);</span><span class="nt">y</span><span class="o">=</span><span class="nt">2</span><span class="o">*</span><span class="nt">x</span><span class="o">+</span><span class="nt">rand</span><span class="o">(</span><span class="nt">6</span><span class="o">^</span><span class="nt">5</span><span class="o">,</span><span class="nt">1</span><span class="o">)*</span><span class="nt">0</span><span class="nc">.1</span><span class="o">;</span>     
     <span class="nt">A</span><span class="o">=</span><span class="cp">[</span><span class="nx">x</span><span class="s1">&#39;;y&#39;</span><span class="cp">]</span><span class="o">;</span>   
     <span class="nt">A</span><span class="o">=</span><span class="nt">layer_tensor</span><span class="o">(</span><span class="nt">A</span><span class="o">(:),</span><span class="cp">[</span><span class="mi">2</span><span class="p">;</span><span class="mi">1</span><span class="cp">]</span><span class="o">,</span><span class="cp">[</span><span class="mi">6</span><span class="p">^</span><span class="mi">5</span><span class="cp">]</span><span class="o">);</span>    
@@ -210,6 +206,7 @@ isequal(L1,L2)
 </pre></div>
 
 
+<p>===================================================================        </p>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
@@ -271,6 +268,11 @@ isequal(L1,L2)
 			
 			<ul style="float:right;">
 				<li>
+					◄&nbsp;&nbsp;<a href="/articles/2015/06/PCANet/">
+						导读：PCANet,Simple Deep Learning Baseline for Image Classification?
+					</a>
+				</li>
+				<li>
 					►&nbsp;&nbsp;<a href="/articles/2015/08/qtt_intro_1/">
 						QTT: 一种自带并行的数组结构
 					</a>
@@ -278,68 +280,90 @@ isequal(L1,L2)
 			</ul>
 			
 			
-            <div class="comments">
-              <h3>Comments</h3>
-              <div id="disqus_thread"></div>
-              <script type="text/javascript">
-                var disqus_identifier = "articles/2015/08/qtt_quickstart/";
-                (function() {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = 'http://httpgasongjiangithubio.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-              </script>
-            </div>
+
+			
+		<!-- 多说评论框 start -->
+		<!-- data-thread-key="" data-title="QTT-Toolbox QuickStart" data-url="articles/2015/08/qtt_quickstart/" -->
+		<div class="ds-thread" data-thread-key="" data-title="QTT-Toolbox QuickStart" data-url="articles/2015/08/qtt_quickstart/" ></div>
+		<!-- 多说评论框 end -->
+		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+		<script type="text/javascript">
+		var duoshuoQuery = {short_name:gasongjian};
+			(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+			})();
+			</script>
+	
+		<!-- 多说公共JS代码 end -->
+
+
+
 
 
         </div><!-- /.eleven.columns -->
         
 <div class="three columns">
 
-<div class="sidebarbg">
-	<h4>Pages</h4>
-	<ul>
-<!-- 	  		  <li><a href="/index2.html">Publications</a></li>
-		  <li><a href="/index3.html">Projects</a></li>
-		  <li><a href="/index4.html">Data</a></li>
-		  <li><a href="/index5.html">About me</a></li>
+<!--<h4>Pages</h4>
+
+ <ul>
+      <li><a href="/index2.html">Publications</a></li>
+      <li><a href="/index3.html">Projects</a></li>
+      <li><a href="/index4.html">Data</a></li>
+      <li><a href="/index5.html">About me</a></li>
+  </ul>
+-->
+
+<!-- <h4>Categories</h4>
+<ul>
+		<li><a href="/category/article.html">Article</a></li>
+		<li><a href="/category/toolbox.html">Toolbox</a></li>
+</ul>
  -->
-	</ul>
-</div>
+
+ <div class="sidebarbg"> 
+ <h4>消息</h4>
+		 
+<ul>
+<li> 这里放一些最新的消息 </li>
+<li> QTT工具箱已更新至1.0版本 </li>
+</ul>
+
+</div>  
+ 
+
 
 <div class="sidebarbg">
-<h4>Categories</h4>
-	<ul>
-			<li><a href="/category/article.html">Article</a></li>
-			<li><a href="/category/toolbox.html">Toolbox</a></li>
-	</ul>
-</div>
+	<h4>标签</h4>
+    <ul class="tagcloud">
+            <li class="tag-1"><a target="_blank" href="/tag/toolbox.html">Toolbox</a></li>
+            <li class="tag-4"><a target="_blank" href="/tag/pelican.html">pelican</a></li>
+            <li class="tag-1"><a target="_blank" href="/tag/qtt.html">QTT</a></li>
+            <li class="tag-4"><a target="_blank" href="/tag/github.html">Github</a></li>
+            <li class="tag-4"><a target="_blank" href="/tag/ml.html">ML</a></li>
+    </ul>	
+</div> 
 
-<div class="sidebarbg">
-	<h4>Tags</h4>
-		<ul>
-		</ul>
-</div>
+
+
+
+
 
 
 <div class="social sidebarbg">
 	<nav class="widget">
-	  <h4>Social</h4>
+	  <h4>外链</h4>
 	  <ul>
 		<li><a target="_blank" href="/feeds/all.atom.xml">RSS</a></li>
 		<li><a target="_blank" href="https://github.com/gasongjian">GitHub</a></li>
-		<li><a target="_blank" href="https:/github.com/gasongjian/QTT/">ToolBox</a></li>
 	  </ul>
 	</nav>
 </div>
-
-<nav class="widget sidebarbg">
-  <h4>Links</h4>
-  <ul>
-	<li><a target="_blank" href="http://python.org/">Python</a></li>
-	<li><a target="_blank" href="http://docs.getpelican.com/">Pelican</a></li>
-  </ul>
-</nav>
 
 </div> </div><!-- /.row -->
 
@@ -357,9 +381,9 @@ isequal(L1,L2)
           <div class="seven columns left-center">
 				   <img alt="Welcome" height="77px" width="78px" src="/images/blogger.jpg" />												
                    <address id="about" class="vcard body" style="margin-left:110px;margin-top:-80px">
-					博主目前就读于华师大,专业计算数学，爱好数据科学。<br/>
-					Email:gasongjian@126.com&nbsp;欢迎添加友链~<br/>
-					本博客使用Pelican+GitHub Pages搭建，详情请参考<a href="http://www.xycoding.com/articles/2013/11/21/blog-create/" class="active" target="_blank">教程</a>。
+					博主目前是华师大的一名计算数学研究僧<br/>
+				    Email:<img src="/images/email.png" />，欢迎联系 <br/>					
+					本博客由<a href="http://docs.getpelican.com" class="active" target="_blank">Pelican</a>+GitHub Page搭建 
 				   </address>
           </div>
 
@@ -373,6 +397,8 @@ isequal(L1,L2)
 
                 <li><div class="btn facebook"><a href="http://weibo.com/u/2063269055" target="_blank">微博</a></div></li>
 
+				
+                <li><div class="btn twitter"><a href="http://weixin.qq.com/" target="_blank">微信</a></div></li>
 
               </ul>
             </div>
@@ -380,17 +406,20 @@ isequal(L1,L2)
         </footer>
 
     </div>
+	
+	
 
 
-<script type="text/javascript">
-    var disqus_shortname = 'httpgasongjiangithubio';
-    (function () {
-        var s = document.createElement('script'); s.async = true;
-        s.type = 'text/javascript';
-        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
-        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-    }());
+
+<!-- 百度分享按钮 BEGIN -->
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"0","bdPos":"right","bdTop":"100"}};
+with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
 </script>
+<!-- 百度分享按钮 END-->
+	
+
+
   <script src="/theme/js/libs/jquery-1.9.1.min.js"></script>
   <script src="/theme/js/libs/gumby.min.js"></script>
   <script src="/theme/js/plugins.js"></script>

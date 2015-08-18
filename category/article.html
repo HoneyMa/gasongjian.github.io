@@ -2,10 +2,10 @@
 <html lang="zh">
 <head>
 
-        <title>数据科学</title>
+        <title>数据科学小站</title>
 		
 		<meta name="description" content="数据科学是一个专注于数据驱动和计算数学的博客，希望大家一起交流学习。">
-		<meta name="keywords" content="Linux，pelican，github，github pages，数据结构，算法，编程语言，开源软件，互联网，程序员找工作，移动互联网，生活时尚，情感交流，研究生生活，技术博客">
+		<meta name="keywords" content="pelican，github，github pages，数据结构，算法，计算数学，张量分解，降维，特征提取，图像处理，机器学习，深度学习，编程语言，研究生生活，技术博客">
 		
         <meta charset="utf-8" />
 
@@ -38,7 +38,7 @@
         <div class="row">
 
           <header id="banner" class="body">
-                  <h1><a href="">数据科学 <strong>Data is All, ALL is Data</strong></a></h1>
+                  <h1><a href="">数据科学小站 <strong>Data is All, ALL is Data</strong></a></h1>
           </header><!-- /#banner -->
 
             <div id="navigation" class="navbar row">
@@ -47,10 +47,10 @@
               <ul class="columns">
                 <li><a href="/">Home</a></li>
 				
-					<li><a href="/index2.html">Publications</a></li>
-					<li><a href="/index3.html">Projects</a></li>
-					<li><a href="/index4.html">Data</a></li>
-					<li><a href="/index5.html">About me</a></li>
+					<li><a target="_blank" href="/index2.html">Publications</a></li>
+					<li><a target="_blank" href="/index3.html">Projects</a></li>
+					<li><a target="_blank" href="/index4.html">Data</a></li>
+					<li><a target="_blank" href="/index5.html">About me</a></li>
 				
 				<!--
 					<li><a href="/index2.html">Publications</a></li>
@@ -70,6 +70,41 @@
 <h2>Articles in the Article category</h2>
 		
 		         <ol id="post-list">
+				        <li><article class="hentry">
+				                <header> <h2 class="entry-title"><a href="/articles/2015/08/blog_create/" rel="bookmark" title="Permalink to 小白如何利用Github+pelican建站">小白如何利用Github+pelican建站</a></h2> </header>
+				                <footer class="post-info">
+				                    <!--<abbr class="published" title="2015-08-18T13:41:00+08:00"> 周二 18 八月 2015 </abbr>
+<address class="vcard author">By <a class="url fn" href="/author/jsong.html">JSong</a></address>-->
+								 <address class="vcard author" style="font-style:italic;">
+									周二 18 八月 2015
+										&nbsp;&nbsp;Write By <a class="url fn" href="/author/jsong.html">JSong</a>
+								  </address>
+									
+				                </footer><!-- /.post-info -->
+				                <div class="entry-content"> <hr />
+<blockquote>
+<p>之前有一个微信公众号，但里面写技术文章太不方便，国内的很多博客对数学公式支持也不咋的，所以就萌生了自己建一个的想法。对于不懂Python,不懂HTML的小白，如何才能快速建站。</p>
+</blockquote>
+<h3><strong>快速开始</strong></h3>
+<p>上海电信弄了个精品网，然后国外网站的打开速度就慢了不是一点点，github的很多代码都下载不下来。对于数据科学工作者，这里提供一个各种软件和代码的集成包，可以让你快速开始Blog之路。</p>
+<p>(未完待续)</p>
+<h3><strong>第一步</strong></h3>
+<h3><strong>主题选择</strong></h3> </div><!-- /.entry-content -->
+
+								<div class="medium primary btn"><a href="/articles/2015/08/blog_create/" rel="bookmark" title="Permalink to 小白如何利用Github+pelican建站">Read more <i class="icon-arrow-right"></i></a></div>
+
+
+
+								<div class="row tag-row">
+										<span>Tagged as : </span>
+											<a class="danger label" href="/tag/github.html">Github</a>
+											<a class="danger label" href="/tag/blog.html">blog</a>
+											<a class="danger label" href="/tag/pelican.html">pelican</a>
+								</div>
+
+
+
+				        </article></li>
 				        <li><article class="hentry">
 				                <header> <h2 class="entry-title"><a href="/articles/2015/08/qtt_intro_1/" rel="bookmark" title="Permalink to QTT: 一种自带并行的数组结构">QTT: 一种自带并行的数组结构</a></h2> </header>
 				                <footer class="post-info">
@@ -167,56 +202,159 @@ $$</div>
 
 
 				        </article></li>
+				        <li><article class="hentry">
+				                <header> <h2 class="entry-title"><a href="/articles/2015/06/PCANet/" rel="bookmark" title="Permalink to 导读：PCANet,Simple Deep Learning Baseline for Image Classification?">导读：PCANet,Simple Deep Learning Baseline for Image Classification?</a></h2> </header>
+				                <footer class="post-info">
+				                    <!--<abbr class="published" title="2015-06-06T19:22:00+08:00"> 周六 06 六月 2015 </abbr>
+<address class="vcard author">By <a class="url fn" href="/author/jsong.html">JSong</a></address>-->
+								 <address class="vcard author" style="font-style:italic;">
+									周六 06 六月 2015
+										&nbsp;&nbsp;Write By <a class="url fn" href="/author/jsong.html">JSong</a>
+								  </address>
+									
+				                </footer><!-- /.post-info -->
+				                <div class="entry-content"> <hr />
+<blockquote>
+<p>之前看过一句话，未来领域类专家需求将越来越少，而相应的数据挖掘专家需求将不断增加，这时因为深度学习的核心在于其自适应的特征提取。PCANet是一个基于CNN的简化Deep Learning模型。之所以读它是因为它是基于PCA(SVD)的，其卷积核从图像信号的某种SVD分解得到的，而这也是张量列分解的核心之一。该网络与CNN相比最大的地方在于卷积核是直接通过PCA计算得到的，而不是像CNN一样通过反馈迭代得到的。</p>
+</blockquote>
+<p><img alt="经典卷积网络示意图" src="/images/cnn1.png" /></p>
+<p><img alt="PCANet示意图" src="/images/pcanet1.png" /></p>
+<p>从上图可以看到，PCANet的训练分为三个步骤(stage)，前两个stage很相似，都是去平均，然后PCA取主成分并卷积，最后一步是二值化和直方图量化。下面按步骤介绍PCANet的训练过程：</p>
+<p>一、特征提取</p>
+<p>1、First stage:</p>
+<p><img alt="First stage" src="/images/pcanet2.png" /></p>
+<p>1)、选取一个<span class="math">\(k_1 \times k_2\)</span>的窗口(通常为<span class="math">\(3 \times 3\)</span>、<span class="math">\(5\times 5\)</span>、<span class="math">\(7\times 7\)</span>)来滑动选取图片的局部特征。每张<span class="math">\(m\times n\)</span>大小的图片<span class="math">\(I_i\)</span>经过滑动窗口提取局部特征之后 ...</p><script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+    
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript'; 
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script> </div><!-- /.entry-content -->
+
+								<div class="medium primary btn"><a href="/articles/2015/06/PCANet/" rel="bookmark" title="Permalink to 导读：PCANet,Simple Deep Learning Baseline for Image Classification?">Read more <i class="icon-arrow-right"></i></a></div>
+
+
+
+								<div class="row tag-row">
+										<span>Tagged as : </span>
+											<a class="danger label" href="/tag/cnn.html">CNN</a>
+											<a class="danger label" href="/tag/dl.html">Dl</a>
+											<a class="danger label" href="/tag/ml.html">ML</a>
+								</div>
+
+
+
+				        </article></li>
 				</ol><!-- /#posts-list -->
 
         </div><!-- /.eleven.columns -->
         
 <div class="three columns">
 
-<div class="sidebarbg">
-	<h4>Pages</h4>
-	<ul>
-<!-- 	  		  <li><a href="/index2.html">Publications</a></li>
-		  <li><a href="/index3.html">Projects</a></li>
-		  <li><a href="/index4.html">Data</a></li>
-		  <li><a href="/index5.html">About me</a></li>
+<!--<h4>Pages</h4>
+
+ <ul>
+      <li><a href="/index2.html">Publications</a></li>
+      <li><a href="/index3.html">Projects</a></li>
+      <li><a href="/index4.html">Data</a></li>
+      <li><a href="/index5.html">About me</a></li>
+  </ul>
+-->
+
+<!-- <h4>Categories</h4>
+<ul>
+		<li><a href="/category/article.html">Article</a></li>
+		<li><a href="/category/toolbox.html">Toolbox</a></li>
+</ul>
  -->
-	</ul>
-</div>
+
+ <div class="sidebarbg"> 
+ <h4>消息</h4>
+		 
+<ul>
+<li> 这里放一些最新的消息 </li>
+<li> QTT工具箱已更新至1.0版本 </li>
+</ul>
+
+</div>  
+ 
+
 
 <div class="sidebarbg">
-<h4>Categories</h4>
-	<ul>
-			<li><a href="/category/article.html">Article</a></li>
-			<li><a href="/category/toolbox.html">Toolbox</a></li>
-	</ul>
-</div>
+	<h4>标签</h4>
+    <ul class="tagcloud">
+            <li class="tag-1"><a target="_blank" href="/tag/toolbox.html">Toolbox</a></li>
+            <li class="tag-4"><a target="_blank" href="/tag/pelican.html">pelican</a></li>
+            <li class="tag-1"><a target="_blank" href="/tag/qtt.html">QTT</a></li>
+            <li class="tag-4"><a target="_blank" href="/tag/github.html">Github</a></li>
+            <li class="tag-4"><a target="_blank" href="/tag/ml.html">ML</a></li>
+    </ul>	
+</div> 
 
-<div class="sidebarbg">
-	<h4>Tags</h4>
-		<ul>
-		</ul>
-</div>
+
+
+
+
 
 
 <div class="social sidebarbg">
 	<nav class="widget">
-	  <h4>Social</h4>
+	  <h4>外链</h4>
 	  <ul>
 		<li><a target="_blank" href="/feeds/all.atom.xml">RSS</a></li>
 		<li><a target="_blank" href="https://github.com/gasongjian">GitHub</a></li>
-		<li><a target="_blank" href="https:/github.com/gasongjian/QTT/">ToolBox</a></li>
 	  </ul>
 	</nav>
 </div>
-
-<nav class="widget sidebarbg">
-  <h4>Links</h4>
-  <ul>
-	<li><a target="_blank" href="http://python.org/">Python</a></li>
-	<li><a target="_blank" href="http://docs.getpelican.com/">Pelican</a></li>
-  </ul>
-</nav>
 
 </div> </div><!-- /.row -->
 
@@ -236,9 +374,9 @@ $$</div>
           <div class="seven columns left-center">
 				   <img alt="Welcome" height="77px" width="78px" src="/images/blogger.jpg" />												
                    <address id="about" class="vcard body" style="margin-left:110px;margin-top:-80px">
-					博主目前就读于华师大,专业计算数学，爱好数据科学。<br/>
-					Email:gasongjian@126.com&nbsp;欢迎添加友链~<br/>
-					本博客使用Pelican+GitHub Pages搭建，详情请参考<a href="http://www.xycoding.com/articles/2013/11/21/blog-create/" class="active" target="_blank">教程</a>。
+					博主目前是华师大的一名计算数学研究僧<br/>
+				    Email:<img src="/images/email.png" />，欢迎联系 <br/>					
+					本博客由<a href="http://docs.getpelican.com" class="active" target="_blank">Pelican</a>+GitHub Page搭建 
 				   </address>
           </div>
 
@@ -252,6 +390,8 @@ $$</div>
 
                 <li><div class="btn facebook"><a href="http://weibo.com/u/2063269055" target="_blank">微博</a></div></li>
 
+				
+                <li><div class="btn twitter"><a href="http://weixin.qq.com/" target="_blank">微信</a></div></li>
 
               </ul>
             </div>
@@ -259,17 +399,20 @@ $$</div>
         </footer>
 
     </div>
+	
+	
 
 
-<script type="text/javascript">
-    var disqus_shortname = 'httpgasongjiangithubio';
-    (function () {
-        var s = document.createElement('script'); s.async = true;
-        s.type = 'text/javascript';
-        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
-        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-    }());
+
+<!-- 百度分享按钮 BEGIN -->
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"0","bdPos":"right","bdTop":"100"}};
+with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
 </script>
+<!-- 百度分享按钮 END-->
+	
+
+
   <script src="/theme/js/libs/jquery-1.9.1.min.js"></script>
   <script src="/theme/js/libs/gumby.min.js"></script>
   <script src="/theme/js/plugins.js"></script>
