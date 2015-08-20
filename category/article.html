@@ -212,17 +212,17 @@ $$</div>
 								  </address>
 									
 				                </footer><!-- /.post-info -->
-				                <div class="entry-content"> <hr />
+				                <div class="entry-content"> <hr/>
 <blockquote>
-<p>之前看过一句话，未来领域类专家需求将越来越少，而相应的数据挖掘专家需求将不断增加，这时因为深度学习的核心在于其自适应的特征提取。PCANet是一个基于CNN的简化Deep Learning模型。之所以读它是因为它是基于PCA(SVD)的，其卷积核从图像信号的某种SVD分解得到的，而这也是张量列分解的核心之一。该网络与CNN相比最大的地方在于卷积核是直接通过PCA计算得到的，而不是像CNN一样通过反馈迭代得到的。</p>
+<p>之前看过一句话，未来领域类专家需求将越来越少，而相应的数据挖掘专家需求将不断增加，这时因为深度学习的核心在于其自适应的特征提取。PCANet是一个基于CNN的简化Deep Learning模型。之所以读它是因为它是基于PCA(SVD)的，其卷积核从图像信号的某种SVD分解得到的，而这也是张量列分解的核心之一。与CNN相比，该网络卷积核是直接通过PCA计算得到的，而不是像CNN一样通过反馈迭代得到的。</p>
 </blockquote>
-<p><img alt="经典卷积网络示意图" src="/images/cnn1.png" /></p>
-<p><img alt="PCANet示意图" src="/images/pcanet1.png" /></p>
+<p><img alt="经典卷积网络示意图" src="/images/cnn1.png"/></p>
+<p><img alt="PCANet示意图" src="/images/pcanet1.png"/></p>
 <p>从上图可以看到，PCANet的训练分为三个步骤(stage)，前两个stage很相似，都是去平均，然后PCA取主成分并卷积，最后一步是二值化和直方图量化。下面按步骤介绍PCANet的训练过程：</p>
 <p>一、特征提取</p>
 <p>1、First stage:</p>
-<p><img alt="First stage" src="/images/pcanet2.png" /></p>
-<p>1)、选取一个<span class="math">\(k_1 \times k_2\)</span>的窗口(通常为<span class="math">\(3 \times 3\)</span>、<span class="math">\(5\times 5\)</span>、<span class="math">\(7\times 7\)</span>)来滑动选取图片的局部特征。每张<span class="math">\(m\times n\)</span>大小的图片<span class="math">\(I_i\)</span>经过滑动窗口提取局部特征之后 ...</p><script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+<p><img alt="First stage" src="/images/pcanet2.png"/></p>
+<p>1)、选取一个<span class="math">\(k_1 \times k_2\)</span>的窗口(通常为<span class="math">\(3 \times 3\)</span>、<span class="math">\(5\times 5\)</span>、<span class="math">\(7\times 7\)</span>)来滑动选取图片的局部特征。每张<span class="math">\(m\times n\)</span>大小的图片<span class="math">\(I_i\) ...</span></p><script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
         linebreak = "false";
@@ -329,16 +329,45 @@ $$</div>
 
 
 <div class="sidebarbg">
-	<h4>标签</h4>
+	<h4><a href="/tags.html">标签</a></h4>
     <ul class="tagcloud">
-            <li class="tag-1"><a target="_blank" href="/tag/toolbox.html">Toolbox</a></li>
-            <li class="tag-4"><a target="_blank" href="/tag/github.html">Github</a></li>
-            <li class="tag-4"><a target="_blank" href="/tag/pelican.html">pelican</a></li>
-            <li class="tag-4"><a target="_blank" href="/tag/ml.html">ML</a></li>
-            <li class="tag-1"><a target="_blank" href="/tag/qtt.html">QTT</a></li>
+	<li>
+           <a class="tag-4"> <a target="_blank" href="/tag/cnn.html">CNN</a></a>
+           <a class="tag-4"> <a target="_blank" href="/tag/matlab.html">MATLAB</a></a>
+           <a class="tag-4"> <a target="_blank" href="/tag/blog.html">blog</a></a>
+           <a class="tag-4"> <a target="_blank" href="/tag/github-pages.html">github pages</a></a>
+           <a class="tag-4"> <a target="_blank" href="/tag/ml.html">ML</a></a>
+           <a class="tag-4"> <a target="_blank" href="/tag/dl.html">Dl</a></a>
+           <a class="tag-1"> <a target="_blank" href="/tag/toolbox.html">Toolbox</a></a>
+           <a class="tag-4"> <a target="_blank" href="/tag/spiders.html">Spiders</a></a>
+           <a class="tag-1"> <a target="_blank" href="/tag/qtt.html">QTT</a></a>
+           <a class="tag-4"> <a target="_blank" href="/tag/pelican.html">pelican</a></a>
+           <a class="tag-4"> <a target="_blank" href="/tag/github.html">Github</a></a>
+           <a class="tag-4"> <a target="_blank" href="/tag/quant.html">Quant</a></a>
+	</li>	
     </ul>	
 </div> 
 
+
+
+<!-- <div class="sidebarbg">
+	<h4><a href="/tags.html">标签</a></h4>
+    <ul class="tagcloud">
+            <li class="tag-4"><a target="_blank" href="/tag/cnn.html">CNN</a></li>
+            <li class="tag-4"><a target="_blank" href="/tag/matlab.html">MATLAB</a></li>
+            <li class="tag-4"><a target="_blank" href="/tag/blog.html">blog</a></li>
+            <li class="tag-4"><a target="_blank" href="/tag/github-pages.html">github pages</a></li>
+            <li class="tag-4"><a target="_blank" href="/tag/ml.html">ML</a></li>
+            <li class="tag-4"><a target="_blank" href="/tag/dl.html">Dl</a></li>
+            <li class="tag-1"><a target="_blank" href="/tag/toolbox.html">Toolbox</a></li>
+            <li class="tag-4"><a target="_blank" href="/tag/spiders.html">Spiders</a></li>
+            <li class="tag-1"><a target="_blank" href="/tag/qtt.html">QTT</a></li>
+            <li class="tag-4"><a target="_blank" href="/tag/pelican.html">pelican</a></li>
+            <li class="tag-4"><a target="_blank" href="/tag/github.html">Github</a></li>
+            <li class="tag-4"><a target="_blank" href="/tag/quant.html">Quant</a></li>
+    </ul>	
+</div> 
+ -->
 
 
 

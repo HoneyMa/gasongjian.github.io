@@ -211,6 +211,7 @@ padding: 0;
 
 .ul.tagcloud li {
 display: inline-block;
+list-style:none;
 .}
 
 .li.tag-1 {
