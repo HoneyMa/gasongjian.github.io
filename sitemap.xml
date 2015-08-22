@@ -5,30 +5,37 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/</loc>
-<lastmod>2015-08-20T21:08:23-00:00</lastmod>
+<lastmod>2015-08-23T01:39:49-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
 <loc>/archives.html</loc>
-<lastmod>2015-08-20T21:08:23-00:00</lastmod>
+<lastmod>2015-08-23T01:39:49-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
 <loc>/tags.html</loc>
-<lastmod>2015-08-20T21:08:23-00:00</lastmod>
+<lastmod>2015-08-23T01:39:49-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
 <loc>/categories.html</loc>
-<lastmod>2015-08-20T21:08:23-00:00</lastmod>
+<lastmod>2015-08-23T01:39:49-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.8</priority>
+</url>
+
+<url>
+<loc>/articles/2015/08/dying_of_freedom/</loc>
+<lastmod>2015-08-22T21:02:00+08:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
 </url>
 
 <url>
@@ -68,7 +75,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/category/article.html</loc>
-<lastmod>2015-08-18T13:41:00+08:06</lastmod>
+<lastmod>2015-08-22T21:02:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.8</priority>
 </url>
@@ -167,6 +174,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>/author/jsong.html</loc>
 <lastmod>2015-08-18T13:41:00+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.8</priority>
+</url>
+
+<url>
+<loc>/author/xiao-hai.html</loc>
+<lastmod>2015-08-22T21:02:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.8</priority>
 </url>
