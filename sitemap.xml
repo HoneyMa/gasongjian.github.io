@@ -5,30 +5,51 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/</loc>
-<lastmod>2015-08-23T01:39:49-00:00</lastmod>
+<lastmod>2015-09-01T23:22:24-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
 <loc>/archives.html</loc>
-<lastmod>2015-08-23T01:39:49-00:00</lastmod>
+<lastmod>2015-09-01T23:22:24-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
 <loc>/tags.html</loc>
-<lastmod>2015-08-23T01:39:49-00:00</lastmod>
+<lastmod>2015-09-01T23:22:24-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
 <loc>/categories.html</loc>
-<lastmod>2015-08-23T01:39:49-00:00</lastmod>
+<lastmod>2015-09-01T23:22:24-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.8</priority>
+</url>
+
+<url>
+<loc>/articles/2015/09/sci-soft-vs/</loc>
+<lastmod>2015-09-01T23:21:00+08:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
+</url>
+
+<url>
+<loc>/articles/2015/09/machine-learning/</loc>
+<lastmod>2015-09-01T13:23:00+08:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
+</url>
+
+<url>
+<loc>/articles/2015/08/metric_of_data/</loc>
+<lastmod>2015-08-25T13:23:00+08:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
 </url>
 
 <url>
@@ -75,7 +96,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/category/article.html</loc>
-<lastmod>2015-08-22T21:02:00+08:06</lastmod>
+<lastmod>2015-09-01T23:23:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.8</priority>
 </url>
@@ -130,6 +151,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>/tag/cnn.html</loc>
+<lastmod>2015-06-06T20:27:00+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.8</priority>
+</url>
+
+<url>
 <loc>/tag/github-pages.html</loc>
 <lastmod>2015-08-16T20:27:00+08:06</lastmod>
 <changefreq>daily</changefreq>
@@ -151,8 +179,8 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>/tag/cnn.html</loc>
-<lastmod>2015-06-06T20:27:00+08:06</lastmod>
+<loc>/tag/ju-chi.html</loc>
+<lastmod>2015-08-25T13:23:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.8</priority>
 </url>
@@ -173,7 +201,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/author/jsong.html</loc>
-<lastmod>2015-08-18T13:41:00+08:06</lastmod>
+<lastmod>2015-09-01T23:23:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.8</priority>
 </url>

@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="zh">
 <head>
 
-        <title>数据科学小站 - CNN</title>
+        <title>分析角度下的机器学习(0)</title>
 		
-		<meta name="description" content="数据科学是一个专注于数据驱动和计算数学的博客，希望大家一起交流学习。">
+		<meta name="description" content="">
 		<meta name="keywords" content="pelican，github，github pages，数据结构，算法，计算数学，张量分解，降维，特征提取，图像处理，机器学习，深度学习，编程语言，研究生生活，技术博客">
 		
         <meta charset="utf-8" />
@@ -62,107 +62,102 @@
               </ul>
             </div>
 
-<section id="content">
+<section id="content" class="body">
 
    <div class="row">
-
         <div class="eleven columns">
 
-		
-		         <ol id="post-list">
-				        <li><article class="hentry">
-				                <header> <h2 class="entry-title"><a href="/articles/2015/06/PCANet/" rel="bookmark" title="Permalink to 导读：PCANet,Simple Deep Learning Baseline for Image Classification?">导读：PCANet,Simple Deep Learning Baseline for Image Classification?</a></h2> </header>
-				                <footer class="post-info">
-				                    <!--<abbr class="published" title="2015-06-06T19:22:00+08:00"> 2015-06-06 19:22:00 </abbr>
-<address class="vcard author">By <a class="url fn" href="/author/jsong.html">JSong</a></address>-->
-								 <address class="vcard author" style="font-style:italic;">
-									2015-06-06 19:22:00
-										&nbsp;&nbsp;作者：<a class="url fn" href="/author/jsong.html">JSong</a>
-								  </address>
-									
-				                </footer><!-- /.post-info -->
-				                <div class="entry-content"> <hr/>
-<blockquote>
-<p>之前看过一句话，未来领域类专家需求将越来越少，而相应的数据挖掘专家需求将不断增加，这时因为深度学习的核心在于其自适应的特征提取。PCANet是一个基于CNN的简化Deep Learning模型。之所以读它是因为它是基于PCA(SVD)的，其卷积核从图像信号的某种SVD分解得到的，而这也是张量列分解的核心之一。与CNN相比，该网络卷积核是直接通过PCA计算得到的，而不是像CNN一样通过反馈迭代得到的。</p>
-</blockquote>
-<p><img alt="经典卷积网络示意图" src="/images/cnn1.png"/></p>
-<p><img alt="PCANet示意图" src="/images/pcanet1.png"/></p>
-<p>从上图可以看到，PCANet的训练分为三个步骤(stage)，前两个stage很相似，都是去平均，然后PCA取主成分并卷积，最后一步是二值化和直方图量化。下面按步骤介绍PCANet的训练过程：</p>
-<p>一、特征提取</p>
-<p>1、First stage:</p>
-<p><img alt="First stage" src="/images/pcanet2.png"/></p>
-<p>1)、选取一个<span class="math">\(k_1 \times k_2\)</span>的窗口(通常为<span class="math">\(3 \times 3\)</span>、<span class="math">\(5\times 5\)</span>、<span class="math">\(7\times 7\)</span>)来滑动选取图片的局部特征。每张<span class="math">\(m\times n\)</span>大小的图片<span class="math">\(I_i\) ...</span></p><script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var align = "center",
-        indent = "0em",
-        linebreak = "false";
 
-    if (false) {
-        align = (screen.width < 768) ? "left" : align;
-        indent = (screen.width < 768) ? "0em" : indent;
-        linebreak = (screen.width < 768) ? 'true' : linebreak;
-    }
-    
-    var mathjaxscript = document.createElement('script');
-    var location_protocol = (false) ? 'https' : document.location.protocol;
-    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
-    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript'; 
-    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
-    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
-        "MathJax.Hub.Config({" +
-        "    config: ['MMLorHTML.js']," +
-        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
-        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
-        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: '"+ align +"'," +
-        "    displayIndent: '"+ indent +"'," +
-        "    showMathMenu: true," +
-        "    tex2jax: { " +
-        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
-        "        displayMath: [ ['$$','$$'] ]," +
-        "        processEscapes: true," +
-        "        preview: 'TeX'," +
-        "    }, " +
-        "    'HTML-CSS': { " +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
-        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
-        "    }, " +
-        "}); " +
-        "if ('default' !== 'default') {" +
-            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-        "}";
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
-}
-</script> </div><!-- /.entry-content -->
+            <header>
+              <h2 class="entry-title">
+                <a href="/articles/2015/09/machine-learning/" rel="bookmark"
+                   title="Permalink to 分析角度下的机器学习(0)">分析角度下的机器学习(0)</a></h2>
+           
+            </header>
+            <footer class="post-info">
+              <!--
+			  <abbr class="published" title="2015-09-01T13:23:00+08:00">
+                2015-09-01 13:23:00
+              </abbr>
+              <address class="vcard author">
+                By <a class="url fn" href="/author/jsong.html">JSong</a>
+              </address>
+			  -->
+			  <address class="vcard author" style="font-style:italic;margin-bottom:-10px;">
+				2015-09-01 13:23:00
+					&nbsp;&nbsp;Write By <a class="url fn" href="/author/jsong.html">JSong</a>
+	
+			  </address>
+			  <hr />			  
+            </footer><!-- /.post-info -->
+            <div class="entry-content">
+              <h3>持续更新中，先欠着</h3>
+            </div><!-- /.entry-content -->
+			
+			
+<!-- 			<div align="center" >
+             求打赏			
+			<form action="https://shenghuo.alipay.com/send/payment/fill.htm" method="POST" target="_blank" accept-charset="GBK">
+			<input name="optEmail" type="hidden" value="gasongjian@126.com" />
+			<input name="payAmount" type="hidden" value="1" />
+			<input id="title" name="title" type="hidden" value="谢谢客官的打赏" />
+			<input name="memo" type="hidden" value="备注" />
+			<input name="pay" type="image" value="转账" src="https://img.alipay.com/sys/personalprod/style/mc/btn-index.png" />
+			</form>
+			</div>	 -->
+			
+			<div align="center" >		
+			<form action="https://shenghuo.alipay.com/send/payment/fill.htm" method="POST" target="_blank" accept-charset="GBK">
+			<input name="optEmail" type="hidden" value="gasongjian@126.com" />
+			<input name="payAmount" type="hidden" value="1" />
+			<input id="title" name="title" type="hidden" value="谢谢客官的打赏" />
+			<input name="memo" type="hidden" value="如果您觉得《分析角度下的机器学习(0)》写得好，就赏几个酒钱吧~~~" />
+			<input name="pay" type="image" value="转账" src="/images/shang.png" />
+			</form>
+			</div>	
 
-								<div class="medium primary btn"><a href="/articles/2015/06/PCANet/" rel="bookmark" title="Permalink to 导读：PCANet,Simple Deep Learning Baseline for Image Classification?">Read more <i class="icon-arrow-right"></i></a></div>
+			
 
+			
+			
+			
+			
+			<ul style="float:right;">
+				<li>
+					◄上一篇：&nbsp;&nbsp;<a href="/articles/2015/08/metric_of_data/">
+						数据空间的几种距离
+					</a>
+				</li>
+				<li>
+					►下一篇：&nbsp;&nbsp;<a href="/articles/2015/09/sci-soft-vs/">
+						同时使用几种科学计算工具是怎样一种感受
+					</a>
+				</li>
+			</ul>
+			
+			
 
-
-								<div class="row tag-row">
-										<span>标签: </span>
-											<a class="danger label" href="/tag/cnn.html">CNN</a>
-											<a class="danger label" href="/tag/dl.html">Dl</a>
-											<a class="danger label" href="/tag/ml.html">ML</a>
-								</div>
+			
+		<!-- 多说评论框 start -->
+		<div class="ds-thread" data-thread-key="machine-learning" data-title="分析角度下的机器学习(0)" data-url="http://gasongjian.github.io/articles/2015/09/machine-learning/" ></div>
+		<!-- 多说评论框 end -->
+		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+		<script type="text/javascript">
+		var duoshuoQuery = {short_name:"gasongjian"};
+			(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+			})();
+			</script>
+		<!-- 多说公共JS代码 end -->
 
 
 
-				        </article></li>
-				</ol><!-- /#posts-list -->
+
 
         </div><!-- /.eleven.columns -->
         
@@ -265,12 +260,12 @@
 </div> 
 
 
-</div> </div><!-- /.row -->
+</div>
+	 
+ </div><!-- /.row -->
 
-<p class="paginator">
-    Page 1 / 1
-</p>
-</section><!-- /#content -->
+
+</section>
 
        </div><!-- /.row -->
     </div><!-- /.container -->

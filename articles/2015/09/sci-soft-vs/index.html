@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="zh">
 <head>
 
-        <title>数据科学小站 - Toolbox</title>
+        <title>同时使用几种科学计算工具是怎样一种感受</title>
 		
-		<meta name="description" content="数据科学是一个专注于数据驱动和计算数学的博客，希望大家一起交流学习。">
+		<meta name="description" content="">
 		<meta name="keywords" content="pelican，github，github pages，数据结构，算法，计算数学，张量分解，降维，特征提取，图像处理，机器学习，深度学习，编程语言，研究生生活，技术博客">
 		
         <meta charset="utf-8" />
@@ -62,39 +62,147 @@
               </ul>
             </div>
 
-<section id="content">
+<section id="content" class="body">
 
    <div class="row">
-
         <div class="eleven columns">
 
-		
-		         <ol id="post-list">
-				        <li><article class="hentry">
-				                <header> <h2 class="entry-title"><a href="/articles/2015/08/qtt_quickstart/" rel="bookmark" title="Permalink to QTT-Toolbox QuickStart">QTT-Toolbox QuickStart</a></h2> </header>
-				                <footer class="post-info">
-				                    <!--<abbr class="published" title="2015-08-15T19:22:00+08:00"> 2015-08-15 19:22:00 </abbr>
-<address class="vcard author">By <a class="url fn" href="/author/jsong.html">JSong</a></address>-->
-								 <address class="vcard author" style="font-style:italic;">
-									2015-08-15 19:22:00
-										&nbsp;&nbsp;作者：<a class="url fn" href="/author/jsong.html">JSong</a>
-								  </address>
-									
-				                </footer><!-- /.post-info -->
-				                <div class="entry-content"> <h3><strong>QTT分解介绍</strong></h3>
-<p>QTT（Quantics Tensor Train）分解是一种适用于任意分层张量(包含多维数组)的张量分解方法, 通过对数组的反复折叠该分解可以达到降维和特征提取的作用。QTT已被证明是一种基于流形学习的降维工具和多尺度的特征提取工具。</p>
-<p><strong>定义：</strong>给定一个分层张量(包含向量、矩阵等多维数组)A，如果其有如下表示，</p>
-<div class="math">$$
-A= U_1 \bowtie U_2 \bowtie \cdots \bowtie U_d
-$$</div>
-<p>其中后面d-1个QTT核满足右正交条件, 则称之为A的QTT分解。</p>
-<h3><strong>工具箱介绍</strong></h3>
-<p>这是一个用MATLAB语言写的QTT-Toolbox，免费提供大家使用,使用后请注明引用,谢谢。工具箱将分层张量新定义成了一个类，分层张量之间的大部分运算都已实现。通过这个模块化编程，我们能更加简单的扩展编程。如果读者发现函数有bug或者实现算法能加速，请邮件告之作者，谢谢。</p>
-<p>=============================================</p>
-<p>JSong,20-Jul-2015</p>
-<p>Last Revision: 11-Aug-2015.</p>
-<p>Github:<a href="http://github.com/gasongjian/QTT/">http://github.com/gasongjian/QTT/</a></p>
-<p>citition ...</p><script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+
+            <header>
+              <h2 class="entry-title">
+                <a href="/articles/2015/09/sci-soft-vs/" rel="bookmark"
+                   title="Permalink to 同时使用几种科学计算工具是怎样一种感受">同时使用几种科学计算工具是怎样一种感受</a></h2>
+           
+            </header>
+            <footer class="post-info">
+              <!--
+			  <abbr class="published" title="2015-09-01T23:23:00+08:00">
+                2015-09-01 23:23:00
+              </abbr>
+              <address class="vcard author">
+                By <a class="url fn" href="/author/jsong.html">JSong</a>
+              </address>
+			  -->
+			  <address class="vcard author" style="font-style:italic;margin-bottom:-10px;">
+				2015-09-01 23:23:00
+					&nbsp;&nbsp;Write By <a class="url fn" href="/author/jsong.html">JSong</a>
+	
+			  </address>
+			  <hr />			  
+            </footer><!-- /.post-info -->
+            <div class="entry-content">
+              <h3>序</h3>
+<p>用知乎体来回答这个问题，持续整理中</p>
+<p>先假设啥好的软件都没有，我们先来想想一个优秀的科学计算软件需要哪些东西。</p>
+<ol>
+<li>
+<p>编程简洁但又能进行一定的自由定制，比如写一个自己行业所需要的工具箱之类的</p>
+</li>
+<li>
+<p>速度快，能适应越来越大的数据流</p>
+</li>
+<li>
+<p>具有可视化功能，可以绘制丰富的图表</p>
+</li>
+</ol>
+<p>那应该怎么设计软件？</p>
+<ol>
+<li>
+<p>设计各种高级的数据类</p>
+<p>1). 支持字符串和数组的向量类型，在MATLAB中两者是分开来的</p>
+</li>
+<li>
+<p>数据类的基本操作或者函数，初始化，索引，切片，逻辑索引，逻辑判断，赋值，</p>
+</li>
+<li>
+<p>简单的数据生成，如数列，特殊矩阵等</p>
+</li>
+<li>
+<p>控制流</p>
+</li>
+<li>
+<p>绘图</p>
+</li>
+<li>
+<p>丰富的函数库，线性代数，概率，图像处理，IO，时间序列，机器学习常用算法</p>
+</li>
+<li>
+<p>外部接口，混合编程</p>
+</li>
+</ol>
+<h3>前言</h3>
+<p>1、 一个不推荐自己编程，高度优化的面向对象的静态统计语言
+2、因为其在参数使用上采用=赋值，所以通常的对象赋值则用符号 &lt;- </p>
+<h3>数据结构</h3>
+<p>最底层的数据结构为：字符，数字，整数，逻辑，复数</p>
+<p>第一层：向量，列表，因子
+第二层（class）：矩阵，数据框等
+向量：同种数据格式，numeric, logical, char）
+        demo ：x&lt;- c(1,2,3,4)
+                      x&lt;-c('M','N')
+矩阵：带size的向量
+                 demo:  dim(x)&lt;-c(2,3) </p>
+<div class="highlight"><pre>             matrix(c(1:10),nrow=2,ncol=5)
+</pre></div>
+
+
+<p>列表：类似于元胞数组，对象的集合
+                   demo:  list(c(1:10),"M")
+数据框： 行必须相同的list，统计常用的一种格式，类似于SPSS，数据库中的表
+                     demo:   data.frame(a,b,c)
+因子 ： factor</p>
+<p>软件是面向对象编程的，每一个这样的向量就是一个对象，一些固有属性如下
+length, 
+names,
+mode(底层/一层),
+class,
+str
+dim
+head
+tail</p>
+<p>字符串操作
+toupper, tolower,nchar,substr,substring(取多组)，paste,grep,strsplit</p>
+<p>系统内存操作
+getwd,setwd,ls,rm,list.files</p>
+<p>数据I/O</p>
+<p>文件读取
+read.table 读取类似于表格的文件，后最不限制，支持分隔符，支持表头
+read.csv,readHTMLTable,SQL(需要RMySQL)
+底层的就是，scan（单元），readlines（行）
+最最底层的，file,gzfile,zfile,open
+load: 导入R格式的数据，后缀为.Rdata</p>
+<p>文件输出
+R控制台： print， cat (好用一些，内部可重定向)
+cat(data,file=filename,append=T)
+文件：sink：适合脚本的输出，由一对命令控制，sink(filename)  ......   sink() 
+高级：write.csv,save</p>
+<p>索引与查找</p>
+<p>向量索引 用[]，[1:5,]  [T,F,T]，支持逻辑索引
+列表索引 用[[]], 类似于元胞，一个中括号返回的是子列表。两个返回的才是元素
+名称索引 用<span class="math">\(   如data.frame里，x\)</span>a</p>
+<p>逻辑查找
+x&lt;-x[x&gt;1]  #记住圆括号一定是用于函数的</p>
+<p>NA查找
+is.na  这是一个函数，可以控制向量里面的NA值
+但是在一些复杂的数据结构中不宜删除NA值，但其又不能用于统计，于是很多函数有这样一个参数，na.rm=TRUE</p>
+<p>概率函数</p>
+<p>d=密度函数
+p=分布函数
+q=分位数函数
+r=生成随机数函数</p>
+<p>控制流</p>
+<p>apply：将函数应用到数据的某一个维度上
+lapply/sapply: 将函数应用到列表上</p>
+<p>机器学习</p>
+<p>1、主成分分析</p>
+<p>princomp(x,)</p>
+<p>hclust(d, method = "complete", members=NULL)</p>
+<p>2、典型相关分析</p>
+<p>用于分析两组变量之间的相关性</p>
+<p>cancor(x, y, xcenter = TRUE, ycenter = TRUE)</p>
+<p>3、mlogit 多类别逻辑回归</p>
+<p>4、e1071中的svm</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
         linebreak = "false";
@@ -149,72 +257,68 @@ $$</div>
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-</script> </div><!-- /.entry-content -->
+</script>
+            </div><!-- /.entry-content -->
+			
+			
+<!-- 			<div align="center" >
+             求打赏			
+			<form action="https://shenghuo.alipay.com/send/payment/fill.htm" method="POST" target="_blank" accept-charset="GBK">
+			<input name="optEmail" type="hidden" value="gasongjian@126.com" />
+			<input name="payAmount" type="hidden" value="1" />
+			<input id="title" name="title" type="hidden" value="谢谢客官的打赏" />
+			<input name="memo" type="hidden" value="备注" />
+			<input name="pay" type="image" value="转账" src="https://img.alipay.com/sys/personalprod/style/mc/btn-index.png" />
+			</form>
+			</div>	 -->
+			
+			<div align="center" >		
+			<form action="https://shenghuo.alipay.com/send/payment/fill.htm" method="POST" target="_blank" accept-charset="GBK">
+			<input name="optEmail" type="hidden" value="gasongjian@126.com" />
+			<input name="payAmount" type="hidden" value="1" />
+			<input id="title" name="title" type="hidden" value="谢谢客官的打赏" />
+			<input name="memo" type="hidden" value="如果您觉得《同时使用几种科学计算工具是怎样一种感受》写得好，就赏几个酒钱吧~~~" />
+			<input name="pay" type="image" value="转账" src="/images/shang.png" />
+			</form>
+			</div>	
 
-								<div class="medium primary btn"><a href="/articles/2015/08/qtt_quickstart/" rel="bookmark" title="Permalink to QTT-Toolbox QuickStart">Read more <i class="icon-arrow-right"></i></a></div>
+			
 
+			
+			
+			
+			
+			<ul style="float:right;">
+				<li>
+					◄上一篇：&nbsp;&nbsp;<a href="/articles/2015/09/machine-learning/">
+						分析角度下的机器学习(0)
+					</a>
+				</li>
+			</ul>
+			
+			
 
-
-								<div class="row tag-row">
-										<span>标签: </span>
-											<a class="danger label" href="/tag/toolbox.html">Toolbox</a>
-											<a class="danger label" href="/tag/github-pages.html">github pages</a>
-											<a class="danger label" href="/tag/qtt.html">QTT</a>
-								</div>
-
-
-
-				        </article></li>
-				        <li><article class="hentry">
-				                <header> <h2 class="entry-title"><a href="/articles/2015/06/matlab_func/" rel="bookmark" title="Permalink to MATLAB 实用函数">MATLAB 实用函数</a></h2> </header>
-				                <footer class="post-info">
-				                    <!--<abbr class="published" title="2015-06-06T19:22:00+08:00"> 2015-06-06 19:22:00 </abbr>
-<address class="vcard author">By <a class="url fn" href="/author/jsong.html">JSong</a></address>-->
-								 <address class="vcard author" style="font-style:italic;">
-									2015-06-06 19:22:00
-										&nbsp;&nbsp;作者：<a class="url fn" href="/author/jsong.html">JSong</a>
-								  </address>
-									
-				                </footer><!-- /.post-info -->
-				                <div class="entry-content"> <h3><strong>MATLAB个人工具箱(MATLAB)</strong></h3>
-<ul>
-<li><code>mymail.m</code> 可以利用MATLAB发送邮件(支持附件和群发)，非常实用的函数，适用于：耗时很长的脚本完成后通知作者；外加定时器后用于信息推送；家庭监视器紧急通知等等</li>
-<li><code>textwrite.m</code> 可以将元胞数组写入文本文件当中，支持足够大的元胞.</li>
-<li><code>qrcode.m</code> 二维码生成器.</li>
-<li><code>md5.m</code> MD5校验、数字指纹。适用于程序的安全设计，如可以设计一个程序，使得其需要密码才能使用.</li>
-<li><code>getmac.m</code> 个人PC的MAC地址获取. 个人电脑网卡的地址是唯一不变的，亦可用于程序的安全设计，使得一个程序只能在指点电脑才能正确运行.</li>
-<li><code>codekernal.m</code> Unicode编码的转换.</li>
-<li><code>addtoolbox.m</code> 将函数添加至matlab工具箱</li>
-</ul>
-<p>下载地址：<a href="http://pan.baidu.com/s/1hq1WQSs">链接</a>, 提取密码(pyfa)。</p>
-<h3><strong>NBA球员数据的爬取函数</strong></h3>
-<p>爬取数据有：</p>
-<div class="highlight"><pre>-  个人ID
--  基本信息
--  头像
--  生涯常规赛数据
--  生涯季后赛数据
-</pre></div>
-
-
-<p>下载地址为：<a href="http://pan.baidu.com/s/1ntFZMnZ">链接 ...</a></p> </div><!-- /.entry-content -->
-
-								<div class="medium primary btn"><a href="/articles/2015/06/matlab_func/" rel="bookmark" title="Permalink to MATLAB 实用函数">Read more <i class="icon-arrow-right"></i></a></div>
-
-
-
-								<div class="row tag-row">
-										<span>标签: </span>
-											<a class="danger label" href="/tag/toolbox.html">Toolbox</a>
-											<a class="danger label" href="/tag/matlab.html">MATLAB</a>
-											<a class="danger label" href="/tag/quant.html">Quant</a>
-											<a class="danger label" href="/tag/spiders.html">Spiders</a>
-								</div>
+			
+		<!-- 多说评论框 start -->
+		<div class="ds-thread" data-thread-key="sci-soft-vs" data-title="同时使用几种科学计算工具是怎样一种感受" data-url="http://gasongjian.github.io/articles/2015/09/sci-soft-vs/" ></div>
+		<!-- 多说评论框 end -->
+		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+		<script type="text/javascript">
+		var duoshuoQuery = {short_name:"gasongjian"};
+			(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+			})();
+			</script>
+		<!-- 多说公共JS代码 end -->
 
 
 
-				        </article></li>
-				</ol><!-- /#posts-list -->
+
 
         </div><!-- /.eleven.columns -->
         
@@ -317,12 +421,12 @@ $$</div>
 </div> 
 
 
-</div> </div><!-- /.row -->
+</div>
+	 
+ </div><!-- /.row -->
 
-<p class="paginator">
-    Page 1 / 1
-</p>
-</section><!-- /#content -->
+
+</section>
 
        </div><!-- /.row -->
     </div><!-- /.container -->

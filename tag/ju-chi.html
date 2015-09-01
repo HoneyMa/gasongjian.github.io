@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
 
-        <title>数据科学小站 - Toolbox</title>
+        <title>数据科学小站 - 距离</title>
 		
 		<meta name="description" content="数据科学是一个专注于数据驱动和计算数学的博客，希望大家一起交流学习。">
 		<meta name="keywords" content="pelican，github，github pages，数据结构，算法，计算数学，张量分解，降维，特征提取，图像处理，机器学习，深度学习，编程语言，研究生生活，技术博客">
@@ -71,144 +71,27 @@
 		
 		         <ol id="post-list">
 				        <li><article class="hentry">
-				                <header> <h2 class="entry-title"><a href="/articles/2015/08/qtt_quickstart/" rel="bookmark" title="Permalink to QTT-Toolbox QuickStart">QTT-Toolbox QuickStart</a></h2> </header>
+				                <header> <h2 class="entry-title"><a href="/articles/2015/08/metric_of_data/" rel="bookmark" title="Permalink to 数据空间的几种距离">数据空间的几种距离</a></h2> </header>
 				                <footer class="post-info">
-				                    <!--<abbr class="published" title="2015-08-15T19:22:00+08:00"> 2015-08-15 19:22:00 </abbr>
+				                    <!--<abbr class="published" title="2015-08-25T13:23:00+08:00"> 2015-08-25 13:23:00 </abbr>
 <address class="vcard author">By <a class="url fn" href="/author/jsong.html">JSong</a></address>-->
 								 <address class="vcard author" style="font-style:italic;">
-									2015-08-15 19:22:00
+									2015-08-25 13:23:00
 										&nbsp;&nbsp;作者：<a class="url fn" href="/author/jsong.html">JSong</a>
 								  </address>
 									
 				                </footer><!-- /.post-info -->
-				                <div class="entry-content"> <h3><strong>QTT分解介绍</strong></h3>
-<p>QTT（Quantics Tensor Train）分解是一种适用于任意分层张量(包含多维数组)的张量分解方法, 通过对数组的反复折叠该分解可以达到降维和特征提取的作用。QTT已被证明是一种基于流形学习的降维工具和多尺度的特征提取工具。</p>
-<p><strong>定义：</strong>给定一个分层张量(包含向量、矩阵等多维数组)A，如果其有如下表示，</p>
-<div class="math">$$
-A= U_1 \bowtie U_2 \bowtie \cdots \bowtie U_d
-$$</div>
-<p>其中后面d-1个QTT核满足右正交条件, 则称之为A的QTT分解。</p>
-<h3><strong>工具箱介绍</strong></h3>
-<p>这是一个用MATLAB语言写的QTT-Toolbox，免费提供大家使用,使用后请注明引用,谢谢。工具箱将分层张量新定义成了一个类，分层张量之间的大部分运算都已实现。通过这个模块化编程，我们能更加简单的扩展编程。如果读者发现函数有bug或者实现算法能加速，请邮件告之作者，谢谢。</p>
-<p>=============================================</p>
-<p>JSong,20-Jul-2015</p>
-<p>Last Revision: 11-Aug-2015.</p>
-<p>Github:<a href="http://github.com/gasongjian/QTT/">http://github.com/gasongjian/QTT/</a></p>
-<p>citition ...</p><script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var align = "center",
-        indent = "0em",
-        linebreak = "false";
+				                <div class="entry-content"> <p>很多算法都要计算各个样本之间的距离，根据样本数据空间的不同，所采用的距离也五花八门。本文的目的就是对常用的距离度量做一个总结。
+虽然网上已有一些总结，但是本文想从测度论角度重新考虑这个问题。</p>
+<p>(还是继续欠着吧，没时间啊)</p> </div><!-- /.entry-content -->
 
-    if (false) {
-        align = (screen.width < 768) ? "left" : align;
-        indent = (screen.width < 768) ? "0em" : indent;
-        linebreak = (screen.width < 768) ? 'true' : linebreak;
-    }
-    
-    var mathjaxscript = document.createElement('script');
-    var location_protocol = (false) ? 'https' : document.location.protocol;
-    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
-    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript'; 
-    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
-    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
-        "MathJax.Hub.Config({" +
-        "    config: ['MMLorHTML.js']," +
-        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
-        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
-        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: '"+ align +"'," +
-        "    displayIndent: '"+ indent +"'," +
-        "    showMathMenu: true," +
-        "    tex2jax: { " +
-        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
-        "        displayMath: [ ['$$','$$'] ]," +
-        "        processEscapes: true," +
-        "        preview: 'TeX'," +
-        "    }, " +
-        "    'HTML-CSS': { " +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
-        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
-        "    }, " +
-        "}); " +
-        "if ('default' !== 'default') {" +
-            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-        "}";
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
-}
-</script> </div><!-- /.entry-content -->
-
-								<div class="medium primary btn"><a href="/articles/2015/08/qtt_quickstart/" rel="bookmark" title="Permalink to QTT-Toolbox QuickStart">Read more <i class="icon-arrow-right"></i></a></div>
+								<div class="medium primary btn"><a href="/articles/2015/08/metric_of_data/" rel="bookmark" title="Permalink to 数据空间的几种距离">Read more <i class="icon-arrow-right"></i></a></div>
 
 
 
 								<div class="row tag-row">
 										<span>标签: </span>
-											<a class="danger label" href="/tag/toolbox.html">Toolbox</a>
-											<a class="danger label" href="/tag/github-pages.html">github pages</a>
-											<a class="danger label" href="/tag/qtt.html">QTT</a>
-								</div>
-
-
-
-				        </article></li>
-				        <li><article class="hentry">
-				                <header> <h2 class="entry-title"><a href="/articles/2015/06/matlab_func/" rel="bookmark" title="Permalink to MATLAB 实用函数">MATLAB 实用函数</a></h2> </header>
-				                <footer class="post-info">
-				                    <!--<abbr class="published" title="2015-06-06T19:22:00+08:00"> 2015-06-06 19:22:00 </abbr>
-<address class="vcard author">By <a class="url fn" href="/author/jsong.html">JSong</a></address>-->
-								 <address class="vcard author" style="font-style:italic;">
-									2015-06-06 19:22:00
-										&nbsp;&nbsp;作者：<a class="url fn" href="/author/jsong.html">JSong</a>
-								  </address>
-									
-				                </footer><!-- /.post-info -->
-				                <div class="entry-content"> <h3><strong>MATLAB个人工具箱(MATLAB)</strong></h3>
-<ul>
-<li><code>mymail.m</code> 可以利用MATLAB发送邮件(支持附件和群发)，非常实用的函数，适用于：耗时很长的脚本完成后通知作者；外加定时器后用于信息推送；家庭监视器紧急通知等等</li>
-<li><code>textwrite.m</code> 可以将元胞数组写入文本文件当中，支持足够大的元胞.</li>
-<li><code>qrcode.m</code> 二维码生成器.</li>
-<li><code>md5.m</code> MD5校验、数字指纹。适用于程序的安全设计，如可以设计一个程序，使得其需要密码才能使用.</li>
-<li><code>getmac.m</code> 个人PC的MAC地址获取. 个人电脑网卡的地址是唯一不变的，亦可用于程序的安全设计，使得一个程序只能在指点电脑才能正确运行.</li>
-<li><code>codekernal.m</code> Unicode编码的转换.</li>
-<li><code>addtoolbox.m</code> 将函数添加至matlab工具箱</li>
-</ul>
-<p>下载地址：<a href="http://pan.baidu.com/s/1hq1WQSs">链接</a>, 提取密码(pyfa)。</p>
-<h3><strong>NBA球员数据的爬取函数</strong></h3>
-<p>爬取数据有：</p>
-<div class="highlight"><pre>-  个人ID
--  基本信息
--  头像
--  生涯常规赛数据
--  生涯季后赛数据
-</pre></div>
-
-
-<p>下载地址为：<a href="http://pan.baidu.com/s/1ntFZMnZ">链接 ...</a></p> </div><!-- /.entry-content -->
-
-								<div class="medium primary btn"><a href="/articles/2015/06/matlab_func/" rel="bookmark" title="Permalink to MATLAB 实用函数">Read more <i class="icon-arrow-right"></i></a></div>
-
-
-
-								<div class="row tag-row">
-										<span>标签: </span>
-											<a class="danger label" href="/tag/toolbox.html">Toolbox</a>
-											<a class="danger label" href="/tag/matlab.html">MATLAB</a>
-											<a class="danger label" href="/tag/quant.html">Quant</a>
-											<a class="danger label" href="/tag/spiders.html">Spiders</a>
+											<a class="danger label" href="/tag/ju-chi.html">距离</a>
 								</div>
 
 
